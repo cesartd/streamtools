@@ -8,7 +8,9 @@
 // Interceptar los mensajes cuando llegan al overlay
 window.addEventListener('message', (event) => {
     const data = event.data;
-    if (!data || !data.message) return;
+    if (!event.data || !event.data.dataReceived) return; // Ignorar si no es un mensaje válido
+
+    const messageText = event.data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
 
     // Esperar un breve momento para que el div de Social Stream Ninja se cree
     setTimeout(() => {
@@ -19,7 +21,7 @@ window.addEventListener('message', (event) => {
         if (!lastBubble) return;
 
         // Reemplazar su contenido
-        const customContent = buildCustomMessage(data.username, data.message);
+        const customContent = buildCustomMessage(messageText);
         lastBubble.innerHTML = ''; // Vaciar contenido original
         lastBubble.appendChild(customContent);
     }, 50); // Esperar 50 ms para asegurar que el mensaje original ya fue renderizado
