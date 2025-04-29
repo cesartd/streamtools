@@ -15,7 +15,7 @@ window.addEventListener('message', (event) => {
     // Esperar un breve momento para que el div de Social Stream Ninja se cree
     setTimeout(() => {
         // Buscar el último burbuja de mensaje que apareció
-        const bubbles = document.querySelectorAll('.chat-bubble');
+        const bubbles = document.querySelectorAll('.hl-content');
         const lastBubble = bubbles[bubbles.length - 1];
 
         if (!lastBubble) return;
@@ -47,8 +47,6 @@ function buildCustomMessage(message) {
         if (emoteCommands[lower] && emoteCount < 3) {
             const img = document.createElement('img');
             img.src = emoteCommands[lower];
-            img.style.width = '28px';
-            img.style.height = '28px';
             img.style.verticalAlign = 'middle';
             wrapper.appendChild(img);
             emoteCount++;
