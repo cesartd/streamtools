@@ -2,9 +2,11 @@
 
 // Escuchar nuevos mensajes en el overlay
 window.addEventListener('message', (event) => {
-    if (!event.data || !event.data.message) return; // Ignorar si no es un mensaje válido
+    
+    if (!event.data || !event.data.dataReceived) return; // Ignorar si no es un mensaje válido
 
-    const messageText = event.data.message.toLowerCase(); // Convertir mensaje a minúsculas
+    const messageText = event.data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
+
 
     // Definir comandos y su respectivo emote (URL de imagen)
     const emoteCommands = {
