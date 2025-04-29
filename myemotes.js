@@ -40,6 +40,6 @@ function showEmote(emoteUrl) {
     emote.style.opacity = 1;
 
     document.body.appendChild(emote);
-
-    // ❌ No desaparecen automáticamente (se quedan hasta que recargues la página)
+    //ignorar
+    // No desaparecen automáticamente (se quedan hasta que recargues la página)
 }
