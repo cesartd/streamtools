@@ -8,9 +8,9 @@ window.addEventListener('message', (event) => {
 
     // Definir comandos y su respectivo emote (URL de imagen)
     const emoteCommands = {
-        '!sangry': 'https://cesartd.github.io/streamtools/emotes/emote_angry.png',
-        '!shaha': 'https://cesartd.github.io/streamtools/emotes/emote_laugh.png',
-        '!ssad': 'https://cesartd.github.io/streamtools/emotes/emote_sad.png'
+        '!sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
+        '!shaha': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_laugh.png',
+        '!ssad': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sad.png'
     };
 
     // Detectar todos los comandos en el mensaje
