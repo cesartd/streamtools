@@ -37,8 +37,6 @@ function buildCustomMessage(rawMessage) {
     wrapper.style.flexWrap = 'wrap';
     wrapper.style.alignItems = 'center';
     wrapper.style.gap = '4px';
-    wrapper.style.fontSize = '20px';
-    wrapper.style.fontFamily = 'Arial, sans-serif';
     wrapper.style.color = 'white';
 
     // Convertir el mensaje HTML a nodos DOM
@@ -68,6 +66,17 @@ function buildCustomMessage(rawMessage) {
             img.src = node.src;
             img.alt = node.alt || '';
             wrapper.appendChild(img);
+        }else{
+            const words2 = node.textContent.split(/(\s+)/); // Conserva los espacios también
+
+            words2.forEach(word => {
+                const lower = word.trim().toLowerCase();
+                
+                const span = document.createElement('span');
+                span.textContent = word;
+                wrapper.appendChild(span);
+                
+            });
         }
     });
 
