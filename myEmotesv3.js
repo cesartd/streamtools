@@ -54,8 +54,6 @@ function buildCustomMessage(rawMessage) {
                 if (emoteCommands[lower] && emoteCount < 3) {
                     const img = document.createElement('img');
                     img.src = emoteCommands[lower];
-                    img.style.width = '28px';
-                    img.style.height = '28px';
                     wrapper.appendChild(img);
                     emoteCount++;
                 } else {
@@ -69,8 +67,6 @@ function buildCustomMessage(rawMessage) {
             const img = document.createElement('img');
             img.src = node.src;
             img.alt = node.alt || '';
-            img.style.width = '28px';
-            img.style.height = '28px';
             wrapper.appendChild(img);
         }
     });
