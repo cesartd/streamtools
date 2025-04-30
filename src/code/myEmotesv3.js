@@ -1,17 +1,17 @@
 // Configura tus comandos y sus respectivas URLs de emotes aquí
 const emoteCommands = {
-    '!sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
-    '!shaha': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_laugh.png',
-    '!ssad': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sad.png',
-    '!sbonk': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_bonk.png',
-    '!syumi': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_eat.png',
-    '!sflor': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_flower.png',
-    '!sgun': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_gun.png',
-    '!ssusto': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_scary.png',
-    '!ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
-    '!spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
-    '!sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
-    '!shuh': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif'
+    'sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
+    'shaha': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_laugh.png',
+    'ssad': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sad.png',
+    'sbonk': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_bonk.png',
+    'syumi': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_eat.png',
+    'sflor': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_flower.png',
+    'sgun': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_gun.png',
+    'ssusto': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_scary.png',
+    'ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
+    'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
+    'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
+    'chuerk': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif'
 };
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
