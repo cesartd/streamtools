@@ -10,7 +10,8 @@ const emoteCommands = {
     '!ssusto': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_scary.png',
     '!ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
     '!spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
-    '!sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png'
+    '!sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
+    '!shuh': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif'
 };
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
