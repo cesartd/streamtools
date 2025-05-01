@@ -221,7 +221,7 @@ function buildCustomProfilePic() {
     modIcon.style.position = 'relative';
     modIcon.style.float = 'left';
     modIcon.style.bottom = '90px';
-    modIcon.style.right = '5px';
+    modIcon.style.right = '-5px';
     modIcon.style.transform = 'rotate(-25deg)';
     
 
