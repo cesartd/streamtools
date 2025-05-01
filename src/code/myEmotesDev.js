@@ -73,6 +73,16 @@ window.addEventListener('message', (event) => {
                     isTopGifterTiktok = true;
 
                     lastBorder.classList.add('moderator-border');
+                    
+                    const profilePics = document.querySelectorAll('.hl-leftside');
+                    const lastProfile = profilePics[profilePics.length - 1];
+                    if (!lastProfile) return;
+
+                     // Construir el nuevo contenido
+                    const customProf = buildCustomProfilePic();
+                    lastProfile.innerHTML = '';
+                    lastProfile.appendChild(customProf);
+
                 }
             })
         }
@@ -197,4 +207,34 @@ function buildCustomName(badges, username) {
 
     return wrapper;
 }
+
+function buildCustomProfilePic() {
+
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'inline-flex';
+    wrapper.style.flexWrap = 'wrap';
+    wrapper.style.alignItems = 'center';
+    wrapper.style.gap = '4px';
+    wrapper.style.color = 'white'; 
+
+     
+     const modIcon = document.createElement('img');
+     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
+     modIcon.alt = 'Mod';
+     modIcon.style.marginRight = '4px';
+     modIcon.style.verticalAlign = 'middle';
+     modIcon.style.width = '30%';
+     modIcon.style.height = '30%';
+     modIcon.style.position = 'relative';
+     modIcon.style.float = 'left';
+     modIcon.style.bottom = '75px';
+     modIcon.style.right = '-5px';
+
+
+     wrapper.appendChild(modIcon);
+    
+
+    return wrapper;
+}
+
 
