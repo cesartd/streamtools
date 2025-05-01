@@ -80,7 +80,6 @@ window.addEventListener('message', (event) => {
 
                      // Construir el nuevo contenido
                     const customProf = buildCustomProfilePic();
-                    lastProfile.innerHTML = '';
                     lastProfile.appendChild(customProf);
 
                 }
@@ -210,31 +209,22 @@ function buildCustomName(badges, username) {
 
 function buildCustomProfilePic() {
 
-    const wrapper = document.createElement('div');
-    wrapper.style.display = 'inline-flex';
-    wrapper.style.flexWrap = 'wrap';
-    wrapper.style.alignItems = 'center';
-    wrapper.style.gap = '4px';
-    wrapper.style.color = 'white'; 
 
      
      const modIcon = document.createElement('img');
-     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
+     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/crown.png'; // Cambia esto por el ícono que prefieras
      modIcon.alt = 'Mod';
      modIcon.style.marginRight = '4px';
      modIcon.style.verticalAlign = 'middle';
-     modIcon.style.width = '30%';
-     modIcon.style.height = '30%';
+     modIcon.style.width = '50%';
+     modIcon.style.height = '50%';
      modIcon.style.position = 'relative';
      modIcon.style.float = 'left';
-     modIcon.style.bottom = '75px';
+     modIcon.style.bottom = '80px';
      modIcon.style.right = '-5px';
-
-
-     wrapper.appendChild(modIcon);
     
 
-    return wrapper;
+    return modIcon;
 }
 
 
