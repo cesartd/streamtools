@@ -16,7 +16,7 @@ styleTag.textContent = `
   border: 2px solid gold !important;
   border-radius: 16px !important;
   animation: goldPulse 2s ease-in-out infinite;
-  background-color: rgba(255, 215, 0, 0.06) !important;
+  background-color: #161c25d6 !important;
   padding: 8px !important;
   margin: 8px 0 !important;
 }
