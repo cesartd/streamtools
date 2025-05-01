@@ -18,7 +18,7 @@ styleTag.textContent = `
   animation: goldPulse 2s ease-in-out infinite;
   background-color: #161c25d6 !important;
   padding: 8px !important;
-  margin: 8px 0 !important;
+  margin: 8px !important;
 }
 `;
 document.head.appendChild(styleTag);
