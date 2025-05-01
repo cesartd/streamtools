@@ -78,9 +78,17 @@ window.addEventListener('message', (event) => {
                     const lastProfile = profilePics[profilePics.length - 1];
                     if (!lastProfile) return;
 
+                    
+
                      // Construir el nuevo contenido
                     const customProf = buildCustomProfilePic();
                     lastProfile.appendChild(customProf);
+
+                    const userNameContainer = document.querySelectorAll('.hl-righttopline');
+                    const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+                    if (!lastUserNameContainer) return;
+
+                    lastUserNameContainer.style.backgroundColor = 'goldenrod';
 
                 }
             })
