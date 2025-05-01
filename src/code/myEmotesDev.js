@@ -222,14 +222,15 @@ function buildCustomProfilePic() {
     const modIcon = document.createElement('img');
     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border.png'; // Cambia esto por el ícono que prefieras
     modIcon.alt = 'Mod';
+    modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
     modIcon.style.verticalAlign = 'middle';
-    modIcon.style.width = '100%';
-    modIcon.style.height = '114px';
+    modIcon.style.width = '130%';
+    modIcon.style.height = '109px';
     modIcon.style.position = 'relative';
     modIcon.style.float = 'left';
-    modIcon.style.bottom = '126px';
-    
+    modIcon.style.bottom = '116px';
+    modIcon.style.right = '8px';
 
     return modIcon;
 }
