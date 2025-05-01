@@ -194,7 +194,7 @@ function buildCustomName(badges, username) {
         } else if (item.includes("fans")) {
             // Si el badge es de moderador, añade el ícono correspondiente
             const modIcon = document.createElement('img');
-            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/fan_badge.png'; // Cambia esto por el ícono que prefieras
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
             modIcon.alt = 'Mod';
             modIcon.style.width = '30px';
             modIcon.style.height = '30px';
