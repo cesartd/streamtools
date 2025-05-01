@@ -211,17 +211,18 @@ function buildCustomProfilePic() {
 
 
      
-     const modIcon = document.createElement('img');
-     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/crown.png'; // Cambia esto por el ícono que prefieras
-     modIcon.alt = 'Mod';
-     modIcon.style.marginRight = '4px';
-     modIcon.style.verticalAlign = 'middle';
-     modIcon.style.width = '50%';
-     modIcon.style.height = '50%';
-     modIcon.style.position = 'relative';
-     modIcon.style.float = 'left';
-     modIcon.style.bottom = '80px';
-     modIcon.style.right = '-5px';
+    const modIcon = document.createElement('img');
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/crown.png'; // Cambia esto por el ícono que prefieras
+    modIcon.alt = 'Mod';
+    modIcon.style.marginRight = '4px';
+    modIcon.style.verticalAlign = 'middle';
+    modIcon.style.width = '60%';
+    modIcon.style.height = '60%';
+    modIcon.style.position = 'relative';
+    modIcon.style.float = 'left';
+    modIcon.style.bottom = '90px';
+    modIcon.style.right = '5px';
+    modIcon.style.transform = 'rotate(-25deg)';
     
 
     return modIcon;
