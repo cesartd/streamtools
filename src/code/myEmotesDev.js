@@ -125,8 +125,8 @@ function buildCustomName(badges, username) {
             const modIcon = document.createElement('img');
             modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
             modIcon.alt = 'Mod';
-            modIcon.style.width = '20px';
-            modIcon.style.height = '20px';
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
             modIcon.style.marginRight = '4px';
             modIcon.style.verticalAlign = 'middle';
             wrapper.appendChild(modIcon);
