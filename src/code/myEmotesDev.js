@@ -225,10 +225,10 @@ function buildCustomProfilePic() {
     modIcon.style.marginRight = '4px';
     modIcon.style.verticalAlign = 'middle';
     modIcon.style.width = '100%';
-    modIcon.style.height = '107px';
+    modIcon.style.height = '114px';
     modIcon.style.position = 'relative';
     modIcon.style.float = 'left';
-    modIcon.style.bottom = '123px';
+    modIcon.style.bottom = '126px';
     
 
     return modIcon;
