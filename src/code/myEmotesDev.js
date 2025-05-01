@@ -1,3 +1,28 @@
+const styleTag = document.createElement('style');
+styleTag.textContent = `
+@keyframes goldPulse {
+  0% {
+    box-shadow: 0 0 6px gold;
+  }
+  50% {
+    box-shadow: 0 0 18px gold;
+  }
+  100% {
+    box-shadow: 0 0 6px gold;
+  }
+}
+
+.bubble.moderator-border {
+  border: 2px solid gold !important;
+  border-radius: 16px !important;
+  animation: goldPulse 2s ease-in-out infinite;
+  background-color: rgba(255, 215, 0, 0.06) !important;
+  padding: 8px !important;
+  margin: 8px 0 !important;
+}
+`;
+document.head.appendChild(styleTag);
+
 // Configura tus comandos y sus respectivas URLs de emotes aquí
 const emoteCommands = {
     'sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
@@ -34,6 +59,24 @@ window.addEventListener('message', (event) => {
         const bubbles = document.querySelectorAll('.hl-content');
         const lastBubble = bubbles[bubbles.length - 1];
         if (!lastBubble) return;
+
+        const bubblesBorder = document.querySelectorAll('.bubble');
+        const lastBorder = bubblesBorder[bubblesBorder.length - 1];
+        if (!lastBorder) return;
+
+        let isTopGifterTiktok = false;
+
+        if(badges){
+        
+            badges.forEach(function(item) {
+                if (item.includes("top_gifter")) {
+                    isTopGifterTiktok = true;
+
+                    lastBorder.classList.add('moderator-border');
+                }
+            })
+        }
+
 
         // Construir el nuevo contenido
         const customContent = buildCustomMessage(messageText);
@@ -142,7 +185,7 @@ function buildCustomName(badges, username) {
             modIcon.style.verticalAlign = 'middle';
             wrapper.appendChild(modIcon);
 
-        }
+        } 
 
     });
 }
