@@ -116,9 +116,11 @@ function buildCustomName(badges, username) {
      const nameSpan = document.createElement('span');
      nameSpan.style.fontWeight = 'bold';
      nameSpan.style.marginRight = '5px';
-
-    badges.forEach(function(item) {
-        if (item.includes("moderator")) {
+     
+     if(badges){
+        
+        badges.forEach(function(item) {
+            if (item.includes("moderater")) {
             // Si el badge es de moderador, añade el ícono correspondiente
             const modIcon = document.createElement('img');
             modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/moderator.png'; // Cambia esto por el ícono que prefieras
@@ -131,8 +133,10 @@ function buildCustomName(badges, username) {
 
         }
     });
+}
+   
 
-    nameSpan.textContent = `${username}:`;
+    nameSpan.textContent = `${username}`;
     wrapper.appendChild(nameSpan);
     
 
