@@ -225,12 +225,12 @@ function buildCustomProfilePic() {
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
     modIcon.style.verticalAlign = 'middle';
-    modIcon.style.width = '130%';
-    modIcon.style.height = '109px';
+    modIcon.style.width = '150%';
+    modIcon.style.height = '114px';
     modIcon.style.position = 'relative';
     modIcon.style.float = 'left';
-    modIcon.style.bottom = '116px';
-    modIcon.style.right = '8px';
+    modIcon.style.bottom = '118px';
+    modIcon.style.right = '19px';
 
     return modIcon;
 }
