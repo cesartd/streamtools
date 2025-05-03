@@ -220,7 +220,7 @@ function buildCustomProfilePic() {
 
      
     const modIcon = document.createElement('img');
-    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border.png'; // Cambia esto por el ícono que prefieras
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border2.png'; // Cambia esto por el ícono que prefieras
     modIcon.alt = 'Mod';
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
