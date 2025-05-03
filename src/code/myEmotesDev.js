@@ -12,7 +12,30 @@ styleTag.textContent = `
   }
 }
 
-.bubble.moderator-border {
+@keyframes rainbowGlow {
+  0% {
+    border-color: #ff4ddb;
+    box-shadow: 0 0 10px #ff4ddb, inset 0 0 5px #ff4ddb;
+  }
+  25% {
+    border-color: #ffa94d;
+    box-shadow: 0 0 10px #ffa94d, inset 0 0 5px #ffa94d;
+  }
+  50% {
+    border-color: #49e0ff;
+    box-shadow: 0 0 10px #49e0ff, inset 0 0 5px #49e0ff;
+  }
+  75% {
+    border-color: #9d4dff;
+    box-shadow: 0 0 10px #9d4dff, inset 0 0 5px #9d4dff;
+  }
+  100% {
+    border-color: #ff4ddb;
+    box-shadow: 0 0 10px #ff4ddb, inset 0 0 5px #ff4ddb;
+  }
+}
+
+.bubble.top-gifter-border {
   border: 2px solid gold !important;
   border-radius: 16px !important;
   animation: goldPulse 2s ease-in-out infinite;
@@ -20,6 +43,16 @@ styleTag.textContent = `
   padding: 8px !important;
   margin: 8px !important;
 }
+
+.bubble.subscriber-border {
+  border: 2px solid transparent !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(255,77,219,0.2), rgba(73,224,255,0.2)) !important;
+  animation: rainbowGlow 3s ease-in-out infinite;
+  padding: 8px !important;
+  margin: 8px 0 !important;
+}
+
 `;
 document.head.appendChild(styleTag);
 
@@ -54,6 +87,7 @@ window.addEventListener('message', (event) => {
     const messageText = data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
     const username = data.dataReceived.overlayNinja.chatname;
     const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
+    const isSub = data.dataReceived.overlayNinja.membership;
 
     setTimeout(() => {
         const bubbles = document.querySelectorAll('.hl-content');
@@ -64,15 +98,18 @@ window.addEventListener('message', (event) => {
         const lastBorder = bubblesBorder[bubblesBorder.length - 1];
         if (!lastBorder) return;
 
-        let isTopGifterTiktok = false;
+        let isSubscriber = false;
 
-        if(badges){
+        if(isSub.localeCompare("SUBSCRIBER") == 0){
+            isSubscriber = true;
+        }
+
+        if(badges && isSubscriber==false){
         
             badges.forEach(function(item) {
                 if (item.includes("top_gifter")) {
-                    isTopGifterTiktok = true;
 
-                    lastBorder.classList.add('moderator-border');
+                    lastBorder.classList.add('top-gifter-border');
                     
                     const profilePics = document.querySelectorAll('.hl-leftside');
                     const lastProfile = profilePics[profilePics.length - 1];
@@ -81,7 +118,7 @@ window.addEventListener('message', (event) => {
                     
 
                      // Construir el nuevo contenido
-                    const customProf = buildCustomProfilePic();
+                    const customProf = buildCustomProfilePicTopGifter();
                     lastProfile.appendChild(customProf);
 
                     const userNameContainer = document.querySelectorAll('.hl-righttopline');
@@ -92,6 +129,15 @@ window.addEventListener('message', (event) => {
 
                 }
             })
+        }else if(isSubscriber==true){
+            lastBorder.classList.add('subscriber-border');
+            const profilePics = document.querySelectorAll('.hl-leftside');
+            const lastProfile = profilePics[profilePics.length - 1];
+            if (!lastProfile) return;
+
+              // Construir el nuevo contenido
+              const customProf = buildCustomProfilePicSubscriber();
+              lastProfile.appendChild(customProf);
         }
 
 
@@ -215,13 +261,31 @@ function buildCustomName(badges, username) {
     return wrapper;
 }
 
-function buildCustomProfilePic() {
+function buildCustomProfilePicTopGifter() {
 
 
      
     const modIcon = document.createElement('img');
     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border2.png'; // Cambia esto por el ícono que prefieras
-    modIcon.alt = 'Mod';
+    modIcon.alt = 'TopGifter';
+    modIcon.className = 'mod'
+    modIcon.style.marginRight = '4px';
+    modIcon.style.verticalAlign = 'middle';
+    modIcon.style.width = '150%';
+    modIcon.style.height = '114px';
+    modIcon.style.position = 'relative';
+    modIcon.style.float = 'left';
+    modIcon.style.bottom = '118px';
+    modIcon.style.right = '19px';
+
+    return modIcon;
+}
+
+function buildCustomProfilePicSubscriber() {
+
+    const modIcon = document.createElement('img');
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/border_sub.png'; // Cambia esto por el ícono que prefieras
+    modIcon.alt = 'Sub';
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
     modIcon.style.verticalAlign = 'middle';
