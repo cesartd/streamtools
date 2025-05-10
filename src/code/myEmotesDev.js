@@ -177,8 +177,8 @@ function buildCustomMessage(rawMessage) {
             if(words.length==1 && emoteCommands[words[0].toLowerCase()]){
                 const img = document.createElement('img');
                 img.src = emoteCommands[words[0].toLowerCase()];
-                img.style.width = '250px';
-                img.style.height = '250px';
+                img.style.width = '200px';
+                img.style.height = '200px';
                 wrapper.appendChild(img);
                 return;
 
