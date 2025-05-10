@@ -173,7 +173,17 @@ function buildCustomMessage(rawMessage) {
         if (node.nodeType === 3) {
             // Es texto plano, revisar comandos personalizados
             const words = node.textContent.split(/\s+/);
-            words.forEach(word => {
+
+            if(words.length==1 && emoteCommands[words[0].toLowerCase()]){
+                const img = document.createElement('img');
+                img.src = emoteCommands[words[0].toLowerCase()];
+                img.style.width = '250px';
+                img.style.height = '250px';
+                wrapper.appendChild(img);
+                return;
+
+            }else{
+              words.forEach(word => {
                 const lower = word.toLowerCase();
                 if (emoteCommands[lower] && emoteCount < 5) {
                     const img = document.createElement('img');
@@ -186,6 +196,9 @@ function buildCustomMessage(rawMessage) {
                     wrapper.appendChild(textSpan);
                 }
             });
+          }
+
+           
         } else if (node.nodeType === 1 && node.tagName === 'IMG') {
             // Es un emote de Twitch (etiqueta <img>)
             const img = document.createElement('img');
