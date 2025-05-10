@@ -69,7 +69,16 @@ const emoteCommands = {
     'ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
     'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
     'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
-    'chuerk': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif'
+    'chuerk': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
+    'aywe': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
+    'dogoh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
+    'gak': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
+    'lgtv': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
+    'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
+    'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
+    'pngul': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
+    'tapotente': 'https://cesartd.github.io/streamtools/src/img/random/tapotente.png'
+    
 };
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
