@@ -266,7 +266,7 @@ function buildCustomName(badges, username, isSubscriber, isTopGifter) {
             const lastProfile = profilePics[profilePics.length - 1];
             if (!lastProfile) return;
 
-            const customProf = "";
+            let customProf = "";
 
             // Construir el nuevo contenido
             if(item.includes("lv1")){
