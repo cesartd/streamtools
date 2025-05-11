@@ -269,12 +269,12 @@ function buildCustomName(badges, username, isSubscriber, isTopGifter) {
             let customProf = "";
 
             // Construir el nuevo contenido
-            if(item.includes("lv1")){
-               customProf = buildCustomProfilePicFans(1);
+            if(item.includes("lv20")){
+               customProf = buildCustomProfilePicFans(3);
             }else if(item.includes("lv10")){
               customProf = buildCustomProfilePicFans(2);
-            } else if(item.includes("lv20")){
-              customProf = buildCustomProfilePicFans(3);
+            } else if(item.includes("lv1")){
+              customProf = buildCustomProfilePicFans(1);
             }
             lastProfile.appendChild(customProf);
             
