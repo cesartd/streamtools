@@ -330,9 +330,9 @@ function buildCustomProfilePicFans(tier) {
     if(tier == 1){
       fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set2-member-tier-1-alt.png'; // Cambia esto por el ícono que prefieras
     }else if(tier == 2){
-      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set-2-member-tier-2.png'; // Cambia esto por el ícono que prefieras
+      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set2-member-tier-2.png'; // Cambia esto por el ícono que prefieras
     }else if(tier == 3){
-      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set-2-member-tier-3.png'; // Cambia esto por el ícono que prefieras
+      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set2-member-tier-3.png'; // Cambia esto por el ícono que prefieras
     }
     
     fanIcon.alt = 'member';
