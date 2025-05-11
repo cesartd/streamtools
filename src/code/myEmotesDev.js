@@ -231,7 +231,7 @@ function buildCustomMessage(rawMessage) {
     return wrapper;
 }
 
-function buildCustomName(badges, username, isSubscriber) {
+function buildCustomName(badges, username, isSubscriber, isTopGifter) {
 
     const wrapper = document.createElement('div');
     wrapper.style.display = 'inline-flex';
