@@ -108,6 +108,7 @@ window.addEventListener('message', (event) => {
         if (!lastBorder) return;
 
         let isSubscriber = false;
+        let isTopGifter = false;
 
         if(isSub.localeCompare("SUBSCRIBER") == 0){
             isSubscriber = true;
@@ -117,6 +118,7 @@ window.addEventListener('message', (event) => {
         
             badges.forEach(function(item) {
                 if (item.includes("top_gifter")) {
+                    isTopGifter = true;
 
                     lastBorder.classList.add('top-gifter-border');
                     
@@ -159,7 +161,7 @@ window.addEventListener('message', (event) => {
         const lastName = names[names.length - 1];
         if (!lastName) return;
 
-        const customName = buildCustomName(badges, username);
+        const customName = buildCustomName(badges, username, isSubscriber, isTopGifter);
         lastName.innerHTML = '';
         lastName.appendChild(customName);
 
@@ -229,7 +231,7 @@ function buildCustomMessage(rawMessage) {
     return wrapper;
 }
 
-function buildCustomName(badges, username) {
+function buildCustomName(badges, username, isSubscriber) {
 
     const wrapper = document.createElement('div');
     wrapper.style.display = 'inline-flex';
@@ -258,6 +260,25 @@ function buildCustomName(badges, username) {
             wrapper.appendChild(modIcon);
 
         } else if (item.includes("fans")) {
+
+          if(isSubscriber==false && isTopGifter==false){
+            const profilePics = document.querySelectorAll('.hl-leftside');
+            const lastProfile = profilePics[profilePics.length - 1];
+            if (!lastProfile) return;
+
+            const customProf = "";
+
+            // Construir el nuevo contenido
+            if(item.includes("lv1")){
+               customProf = buildCustomProfilePicFans(1);
+            }else if(item.includes("lv10")){
+              customProf = buildCustomProfilePicFans(2);
+            } else if(item.includes("lv20")){
+              customProf = buildCustomProfilePicFans(3);
+            }
+            lastProfile.appendChild(customProf);
+            
+          }else{
             // Si el badge es de moderador, añade el ícono correspondiente
             const modIcon = document.createElement('img');
             modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
@@ -267,7 +288,8 @@ function buildCustomName(badges, username) {
             modIcon.style.marginRight = '4px';
             modIcon.style.verticalAlign = 'middle';
             wrapper.appendChild(modIcon);
-
+          }
+           
         } 
 
     });
@@ -299,6 +321,32 @@ function buildCustomProfilePicTopGifter() {
     modIcon.style.right = '19px';
 
     return modIcon;
+}
+
+function buildCustomProfilePicFans(tier) {
+
+    const fanIcon = document.createElement('img');
+
+    if(tier == 1){
+      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/member-tier-1.png'; // Cambia esto por el ícono que prefieras
+    }else if(tier == 2){
+      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/member-tier-2.png'; // Cambia esto por el ícono que prefieras
+    }else if(tier == 3){
+      fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/member-tier-3.png'; // Cambia esto por el ícono que prefieras
+    }
+    
+    fanIcon.alt = 'member';
+    fanIcon.className = 'mod'
+    fanIcon.style.marginRight = '4px';
+    fanIcon.style.verticalAlign = 'middle';
+    fanIcon.style.width = '150%';
+    fanIcon.style.height = '114px';
+    fanIcon.style.position = 'relative';
+    fanIcon.style.float = 'left';
+    fanIcon.style.bottom = '118px';
+    fanIcon.style.right = '19px';
+
+    return fanIcon;
 }
 
 function buildCustomProfilePicSubscriber() {
