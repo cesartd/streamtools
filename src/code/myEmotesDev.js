@@ -189,8 +189,6 @@ function buildCustomMessage(rawMessage) {
                 img.style.width = '200px';
                 img.style.height = '200px';
                 wrapper.appendChild(img);
-                return;
-
             }else{
               words.forEach(word => {
                 const lower = word.toLowerCase();
