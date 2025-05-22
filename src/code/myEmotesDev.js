@@ -382,7 +382,7 @@ function buildCustomProfilePicSubscriber() {
 function buildCustomProfilePicTwitch() {
 
     const modIcon = document.createElement('img');
-    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/member-tier-1.png'; // Cambia esto por el ícono que prefieras
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set2-member-tier-2.png'; // Cambia esto por el ícono que prefieras
     modIcon.alt = 'twitchuser';
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
