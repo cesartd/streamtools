@@ -97,6 +97,7 @@ window.addEventListener('message', (event) => {
     const username = data.dataReceived.overlayNinja.chatname;
     const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
     const isSub = data.dataReceived.overlayNinja.membership;
+    const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
 
     setTimeout(() => {
         const bubbles = document.querySelectorAll('.hl-content');
@@ -148,6 +149,17 @@ window.addEventListener('message', (event) => {
 
               // Construir el nuevo contenido
               const customProf = buildCustomProfilePicSubscriber();
+              lastProfile.appendChild(customProf);
+        }
+
+        if(type.localeCompare("twitch") == 0){
+            lastBorder.classList.add('subscriber-border');
+            const profilePics = document.querySelectorAll('.hl-leftside');
+            const lastProfile = profilePics[profilePics.length - 1];
+            if (!lastProfile) return;
+
+              // Construir el nuevo contenido
+              const customProf = buildCustomProfilePicTwitch();
               lastProfile.appendChild(customProf);
         }
 
@@ -354,6 +366,24 @@ function buildCustomProfilePicSubscriber() {
     const modIcon = document.createElement('img');
     modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/border_sub.png'; // Cambia esto por el ícono que prefieras
     modIcon.alt = 'Sub';
+    modIcon.className = 'mod'
+    modIcon.style.marginRight = '4px';
+    modIcon.style.verticalAlign = 'middle';
+    modIcon.style.width = '150%';
+    modIcon.style.height = '114px';
+    modIcon.style.position = 'relative';
+    modIcon.style.float = 'left';
+    modIcon.style.bottom = '118px';
+    modIcon.style.right = '19px';
+
+    return modIcon;
+}
+
+function buildCustomProfilePicTwitch() {
+
+    const modIcon = document.createElement('img');
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/member-tier-1.png'; // Cambia esto por el ícono que prefieras
+    modIcon.alt = 'twitchuser';
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
     modIcon.style.verticalAlign = 'middle';
