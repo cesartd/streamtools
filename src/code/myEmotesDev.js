@@ -113,43 +113,24 @@ window.addEventListener('message', (event) => {
 
         if(isSub.localeCompare("SUBSCRIBER") == 0){
             isSubscriber = true;
+            isTopGifter = true;
         }
 
-        if(badges && isSubscriber==false){
-        
-            badges.forEach(function(item) {
-                if (item.includes("top_gifter")) {
-                    isTopGifter = true;
-
-                    lastBorder.classList.add('top-gifter-border');
-                    
-                    const profilePics = document.querySelectorAll('.hl-leftside');
-                    const lastProfile = profilePics[profilePics.length - 1];
-                    if (!lastProfile) return;
-
-                    
-
-                     // Construir el nuevo contenido
-                    const customProf = buildCustomProfilePicTopGifter();
-                    lastProfile.appendChild(customProf);
-
-                    const userNameContainer = document.querySelectorAll('.hl-righttopline');
-                    const lastUserNameContainer = userNameContainer[profilePics.length - 1];
-                    if (!lastUserNameContainer) return;
-
-                    lastUserNameContainer.style.backgroundColor = 'goldenrod';
-
-                }
-            })
-        }else if(isSubscriber==true){
-            lastBorder.classList.add('subscriber-border');
+        if(isSubscriber==true){
+            lastBorder.classList.add('top-gifter-border');
             const profilePics = document.querySelectorAll('.hl-leftside');
             const lastProfile = profilePics[profilePics.length - 1];
             if (!lastProfile) return;
 
               // Construir el nuevo contenido
-              const customProf = buildCustomProfilePicSubscriber();
+              const customProf = buildCustomProfilePicTopGifter();
               lastProfile.appendChild(customProf);
+
+              const userNameContainer = document.querySelectorAll('.hl-righttopline');
+                    const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+                    if (!lastUserNameContainer) return;
+
+                    lastUserNameContainer.style.backgroundColor = 'goldenrod';
         }
 
         if(type.localeCompare("twitch") == 0){
