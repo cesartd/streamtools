@@ -72,17 +72,17 @@ const emoteCommands = {
   'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
   'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
   'weno': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
-  'aywe': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
+  'chale': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
   'gak': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
-  'lgtv': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
+  'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
   'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
   'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
   'yiyi': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
   'tapotente': 'https://cesartd.github.io/streamtools/src/img/random/tapotente.png',
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
   'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
-  'jaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
+  'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
   'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp'
 };
 
