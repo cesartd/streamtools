@@ -47,7 +47,7 @@ styleTag.textContent = `
 .bubble.subscriber-border {
   border: 2px solid transparent !important;
   border-radius: 16px !important;
-  background: linear-gradient(135deg, rgba(255,77,219,0.2), rgba(73,224,255,0.2)) !important;
+  background: linear-gradient(135deg, rgba(187, 87, 245, 0.5), rgba(30, 40, 41, 0.6)) !important;
   animation: rainbowGlow 3s ease-in-out infinite;
   padding: 8px !important;
   margin: 8px 0 !important;
@@ -382,7 +382,7 @@ function buildCustomProfilePicSubscriber() {
 function buildCustomProfilePicTwitch() {
 
     const modIcon = document.createElement('img');
-    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set2-member-tier-2.png'; // Cambia esto por el ícono que prefieras
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set-twitch-1.png'; // Cambia esto por el ícono que prefieras
     modIcon.alt = 'twitchuser';
     modIcon.className = 'mod'
     modIcon.style.marginRight = '4px';
