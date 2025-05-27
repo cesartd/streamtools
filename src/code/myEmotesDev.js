@@ -72,7 +72,7 @@ const emoteCommands = {
   'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
   'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
   'weno': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
-  'chale': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
+  'aywe': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
   'gak': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
   'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
