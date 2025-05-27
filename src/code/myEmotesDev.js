@@ -83,7 +83,8 @@ const emoteCommands = {
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
   'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
   'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
-  'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp'
+  'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp',
+  'bye': 'https://cesartd.github.io/streamtools/src/img/random/ebye.gif',
 };
 
 // Escuchar nuevos mensajes
