@@ -154,7 +154,7 @@ window.addEventListener('message', (event) => {
     if (!lastName) return;
 
     // Poner medallas de fans y moderadores
-    const customName = buildCustomName(badges, username, isSubscriber);
+    const customName = buildCustomName(badges, username, isSubscriber, type);
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
@@ -231,7 +231,7 @@ function buildCustomMessage(rawMessage) {
   return wrapper;
 }
 
-function buildCustomName(badges, username, isSubscriber) {
+function buildCustomName(badges, username, isSubscriber, type) {
 
   const wrapper = document.createElement('div');
   wrapper.style.display = 'inline-flex';
@@ -246,61 +246,77 @@ function buildCustomName(badges, username, isSubscriber) {
   nameSpan.style.marginRight = '5px';
 
   if (badges) {
-
-    badges.forEach(function (item) {
-      if (item.includes("moderater")) {
-        // Si el badge es de moderador, añade el ícono correspondiente
-        const modIcon = document.createElement('img');
-        modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
-        modIcon.alt = 'Mod';
-        modIcon.style.width = '30px';
-        modIcon.style.height = '30px';
-        modIcon.style.marginRight = '4px';
-        modIcon.style.verticalAlign = 'middle';
-        wrapper.appendChild(modIcon);
-
-      } else if (item.includes("fans")) {
-
-        if (isSubscriber == false) {
-          const profilePics = document.querySelectorAll('.hl-leftside');
-          const lastProfile = profilePics[profilePics.length - 1];
-          if (!lastProfile) return;
-
-          let customProf = "";
-
-          // Construir el nuevo contenido
-          if (item.includes("lv20")) {
-            customProf = buildCustomProfilePicFans(3);
-          } else if (item.includes("lv10")) {
-            customProf = buildCustomProfilePicFans(2);
-          } else if (item.includes("lv1")) {
-            customProf = buildCustomProfilePicFans(1);
-          }
-          lastProfile.appendChild(customProf);
-
-        } else {
+    if (type.localeCompare("tiktok") == 0) {
+      badges.forEach(function (item) {
+        if (item.includes("moderater")) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
-          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
+          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
           modIcon.alt = 'Mod';
           modIcon.style.width = '30px';
           modIcon.style.height = '30px';
           modIcon.style.marginRight = '4px';
           modIcon.style.verticalAlign = 'middle';
           wrapper.appendChild(modIcon);
+
+        } else if (item.includes("fans")) {
+
+          if (isSubscriber == false) {
+            const profilePics = document.querySelectorAll('.hl-leftside');
+            const lastProfile = profilePics[profilePics.length - 1];
+            if (!lastProfile) return;
+
+            let customProf = "";
+
+            // Construir el nuevo contenido
+            if (item.includes("lv20")) {
+              customProf = buildCustomProfilePicFans(3);
+            } else if (item.includes("lv10")) {
+              customProf = buildCustomProfilePicFans(2);
+            } else if (item.includes("lv1")) {
+              customProf = buildCustomProfilePicFans(1);
+            }
+            lastProfile.appendChild(customProf);
+
+          } else {
+            // Si el badge es de moderador, añade el ícono correspondiente
+            const modIcon = document.createElement('img');
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
+            modIcon.alt = 'Mod';
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
+            modIcon.style.marginRight = '4px';
+            modIcon.style.verticalAlign = 'middle';
+            wrapper.appendChild(modIcon);
+          }
+
         }
 
-      }
+      });
+    } else if (type.localeCompare("twitch") == 0) {
+      badges.forEach(function (item) {
+        if (item.includes("moderater")) {
+          // Si el badge es de moderador, añade el ícono correspondiente
+          const modIcon = document.createElement('img');
+          modIcon.src = item; // Cambia esto por el ícono que prefieras
+          modIcon.alt = 'badge';
+          modIcon.style.width = '30px';
+          modIcon.style.height = '30px';
+          modIcon.style.marginRight = '4px';
+          modIcon.style.verticalAlign = 'middle';
+          wrapper.appendChild(modIcon);
 
-    });
+        }
+      });
+    }
+
+
+    nameSpan.textContent = `${username}`;
+    wrapper.appendChild(nameSpan);
+
+
+    return wrapper;
   }
-
-
-  nameSpan.textContent = `${username}`;
-  wrapper.appendChild(nameSpan);
-
-
-  return wrapper;
 }
 
 function buildCustomProfilePicTopGifter() {
