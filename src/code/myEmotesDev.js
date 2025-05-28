@@ -246,7 +246,20 @@ function buildCustomName(badges, username, isSubscriber, type) {
   nameSpan.style.marginRight = '5px';
 
   if (badges) {
-    if (type.localeCompare("tiktok") == 0) {
+    if (type.localeCompare("twitch") == 0) {
+      badges.forEach(function (item) {
+          // Si el badge es de moderador, añade el ícono correspondiente
+          const modIcon = document.createElement('img');
+          modIcon.src = item; // Cambia esto por el ícono que prefieras
+          modIcon.alt = 'badge';
+          modIcon.style.width = '30px';
+          modIcon.style.height = '30px';
+          modIcon.style.marginRight = '4px';
+          modIcon.style.verticalAlign = 'middle';
+          wrapper.appendChild(modIcon);
+          
+      });
+    } else {
       badges.forEach(function (item) {
         if (item.includes("moderater")) {
           // Si el badge es de moderador, añade el ícono correspondiente
@@ -293,20 +306,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
         }
 
       });
-    } else if (type.localeCompare("twitch") == 0) {
-      badges.forEach(function (item) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = item; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'badge';
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
-          
-      });
-    }
+    } 
 
 
     nameSpan.textContent = `${username}`;
