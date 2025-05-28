@@ -295,7 +295,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
       });
     } else if (type.localeCompare("twitch") == 0) {
       badges.forEach(function (item) {
-        if (item.includes("moderater")) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
           modIcon.src = item; // Cambia esto por el ícono que prefieras
@@ -305,8 +304,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
           modIcon.style.marginRight = '4px';
           modIcon.style.verticalAlign = 'middle';
           wrapper.appendChild(modIcon);
-
-        }
+          
       });
     }
 
