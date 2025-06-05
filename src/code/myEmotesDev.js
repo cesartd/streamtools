@@ -307,14 +307,13 @@ function buildCustomName(badges, username, isSubscriber, type) {
 
       });
     } 
-
+  }
 
     nameSpan.textContent = `${username}`;
     wrapper.appendChild(nameSpan);
 
 
     return wrapper;
-  }
 }
 
 function buildCustomProfilePicTopGifter() {
