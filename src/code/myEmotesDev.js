@@ -144,8 +144,10 @@ window.addEventListener('message', (event) => {
     }
 
 
+    let limpio = messageText.replace(/<\/?i>/g, "");
+
     // Construir el nuevo contenido
-    const customContent = buildCustomMessage(messageText);
+    const customContent = buildCustomMessage(limpio);
     lastBubble.innerHTML = '';
     lastBubble.appendChild(customContent);
 
