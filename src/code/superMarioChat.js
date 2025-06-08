@@ -169,6 +169,11 @@ window.addEventListener('message', (event) => {
       // Cambiar el color de fondo del último nombre de usuario
       lastUserNameContainer.style.backgroundColor = 'goldenrod';
     }else{
+
+      const profilePics = document.querySelectorAll('.hl-leftside');
+      const lastProfile = profilePics[profilePics.length - 1];
+      if (!lastProfile) return;
+      
       // Resaltar el nombre del último usuario
       const userNameContainer = document.querySelectorAll('.hl-righttopline');
       const lastUserNameContainer = userNameContainer[profilePics.length - 1];
