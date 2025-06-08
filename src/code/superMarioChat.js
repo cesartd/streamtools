@@ -93,6 +93,36 @@ const avatarFrames = [
  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/peach.png",
  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toad.png",
  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/yoshi.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bomb.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bowser.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/calamar.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/canon.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/coopa.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/daysi.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/fish.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/goomba.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/pauline.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/planta.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/rosaline.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/skeleton.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/waluigi.png",
+ "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png"
+];
+
+const randomMaterialColors = [
+  '#FFCDD2', // Light Red
+  '#F8BBD0', // Pink
+  '#E1BEE7', // Purple
+  '#D1C4E9', // Deep Purple
+  '#C5CAE9', // Indigo
+  '#BBDEFB', // Light Blue
+  '#B3E5FC', // Cyan
+  '#B2DFDB', // Teal
+  '#C8E6C9', // Light Green
+  '#DCEDC8', // Lime
+  '#FFF9C4', // Yellow
+  '#FFE0B2', // Amber
+  '#FFCCBC', // Orange
 ];
 
 // Escuchar nuevos mensajes
@@ -128,7 +158,7 @@ window.addEventListener('message', (event) => {
       if (!lastProfile) return;
 
       // Construir el nuevo estilo de perfil del suscriptor
-      const customProf = buildGlobalCustomProfile
+      const customProf = buildGlobalCustomProfile();
       lastProfile.appendChild(customProf);
 
       // Resaltar el nombre del último usuario
@@ -138,6 +168,16 @@ window.addEventListener('message', (event) => {
 
       // Cambiar el color de fondo del último nombre de usuario
       lastUserNameContainer.style.backgroundColor = 'goldenrod';
+    }else{
+      // Resaltar el nombre del último usuario
+      const userNameContainer = document.querySelectorAll('.hl-righttopline');
+      const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+      if (!lastUserNameContainer) return;
+
+      const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
+
+      // Cambiar el color de fondo del último nombre de usuario
+      lastUserNameContainer.style.backgroundColor = randomColor;
     }
 
     if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
@@ -282,7 +322,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
           modIcon.style.verticalAlign = 'middle';
           wrapper.appendChild(modIcon);
 
-        } else if (item.includes("fans")) {
+        } else {
 
           if (isSubscriber == false) {
             const profilePics = document.querySelectorAll('.hl-leftside');
