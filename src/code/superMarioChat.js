@@ -119,6 +119,11 @@ const randomMaterialColors = [
   '#1565C0', // Blue50 800
   '#FF5252', // Red50 A200
   '#E040FB', // Purple50 A200
+  '#EF6C00', // Orange50 800
+  '#FF4081', // Pink50 A200
+  '#D32F2F', // Red50 700
+  '#8E24AA',  // purple50 600
+  '#689F38'  // light green 700
 ];
 
 // Escuchar nuevos mensajes
