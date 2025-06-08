@@ -187,13 +187,6 @@ window.addEventListener('message', (event) => {
 
     if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
       lastBorder.classList.add('twitch-border');
-      const profilePics = document.querySelectorAll('.hl-leftside');
-      const lastProfile = profilePics[profilePics.length - 1];
-      if (!lastProfile) return;
-
-      // Construir el nuevo contenido
-      const customProf = buildGlobalCustomProfile();
-      lastProfile.appendChild(customProf);
     }
 
 
@@ -342,7 +335,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
       });
     }
   }
-  
+
   const profilePics = document.querySelectorAll('.hl-leftside');
   const lastProfile = profilePics[profilePics.length - 1];
   if (!lastProfile) return;
