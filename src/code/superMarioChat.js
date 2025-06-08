@@ -166,24 +166,27 @@ window.addEventListener('message', (event) => {
       lastUserNameContainer.style.backgroundColor = 'goldenrod';
     } else {
 
-      const profilePics = document.querySelectorAll('.hl-leftside');
-      const lastProfile = profilePics[profilePics.length - 1];
-      if (!lastProfile) return;
+      if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
+        lastBorder.classList.add('twitch-border');
+      } else {
+        const profilePics = document.querySelectorAll('.hl-leftside');
+        const lastProfile = profilePics[profilePics.length - 1];
+        if (!lastProfile) return;
 
-      // Resaltar el nombre del último usuario
-      const userNameContainer = document.querySelectorAll('.hl-righttopline');
-      const lastUserNameContainer = userNameContainer[profilePics.length - 1];
-      if (!lastUserNameContainer) return;
+        // Resaltar el nombre del último usuario
+        const userNameContainer = document.querySelectorAll('.hl-righttopline');
+        const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+        if (!lastUserNameContainer) return;
 
-      const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
+        const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
 
-      // Cambiar el color de fondo del último nombre de usuario
-      lastUserNameContainer.style.backgroundColor = randomColor;
+        // Cambiar el color de fondo del último nombre de usuario
+        lastUserNameContainer.style.backgroundColor = randomColor;
+      }
+
     }
 
-    if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
-      lastBorder.classList.add('twitch-border');
-    }
+
 
 
     let limpio = messageText.replace(/<\/?i>/g, "");
