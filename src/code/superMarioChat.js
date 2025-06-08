@@ -89,24 +89,24 @@ const emoteCommands = {
 
 const avatarFrames = [
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/mario.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luigi.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/peach.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toad.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/yoshi.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bomb.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bowser.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/calamar.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/canon.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/coopa.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/daysi.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/fish.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/goomba.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/pauline.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/planta.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/rosaline.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/skeleton.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/waluigi.png",
- "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png"
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luigi.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/peach.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toad.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/yoshi.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bomb.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bowser.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/calamar.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/canon.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/coopa.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/daysi.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/fish.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/goomba.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/pauline.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/planta.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/rosaline.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/skeleton.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/waluigi.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png"
 ];
 
 const randomMaterialColors = [
@@ -168,12 +168,12 @@ window.addEventListener('message', (event) => {
 
       // Cambiar el color de fondo del último nombre de usuario
       lastUserNameContainer.style.backgroundColor = 'goldenrod';
-    }else{
+    } else {
 
       const profilePics = document.querySelectorAll('.hl-leftside');
       const lastProfile = profilePics[profilePics.length - 1];
       if (!lastProfile) return;
-      
+
       // Resaltar el nombre del último usuario
       const userNameContainer = document.querySelectorAll('.hl-righttopline');
       const lastUserNameContainer = userNameContainer[profilePics.length - 1];
@@ -303,16 +303,16 @@ function buildCustomName(badges, username, isSubscriber, type) {
   if (badges) {
     if (type.localeCompare("twitch") == 0) {
       badges.forEach(function (item) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = item; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'badge';
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
-          
+        // Si el badge es de moderador, añade el ícono correspondiente
+        const modIcon = document.createElement('img');
+        modIcon.src = item; // Cambia esto por el ícono que prefieras
+        modIcon.alt = 'badge';
+        modIcon.style.width = '30px';
+        modIcon.style.height = '30px';
+        modIcon.style.marginRight = '4px';
+        modIcon.style.verticalAlign = 'middle';
+        wrapper.appendChild(modIcon);
+
       });
     } else {
       badges.forEach(function (item) {
@@ -327,42 +327,37 @@ function buildCustomName(badges, username, isSubscriber, type) {
           modIcon.style.verticalAlign = 'middle';
           wrapper.appendChild(modIcon);
 
-        } else {
-
-          if (isSubscriber == false) {
-            const profilePics = document.querySelectorAll('.hl-leftside');
-            const lastProfile = profilePics[profilePics.length - 1];
-            if (!lastProfile) return;
-
-            let customProf = "";
-
-            customProf = buildGlobalCustomProfile()
-
-            lastProfile.appendChild(customProf);
-
-          } else {
-            // Si el badge es de moderador, añade el ícono correspondiente
-            const modIcon = document.createElement('img');
-            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
-            modIcon.alt = 'Mod';
-            modIcon.style.width = '30px';
-            modIcon.style.height = '30px';
-            modIcon.style.marginRight = '4px';
-            modIcon.style.verticalAlign = 'middle';
-            wrapper.appendChild(modIcon);
-          }
-
+        } else if (isSubscriber == true) {
+          // Si el badge es de moderador, añade el ícono correspondiente
+          const modIcon = document.createElement('img');
+          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
+          modIcon.alt = 'Mod';
+          modIcon.style.width = '30px';
+          modIcon.style.height = '30px';
+          modIcon.style.marginRight = '4px';
+          modIcon.style.verticalAlign = 'middle';
+          wrapper.appendChild(modIcon);
         }
 
       });
-    } 
+    }
   }
+  
+  const profilePics = document.querySelectorAll('.hl-leftside');
+  const lastProfile = profilePics[profilePics.length - 1];
+  if (!lastProfile) return;
 
-    nameSpan.textContent = `${username}`;
-    wrapper.appendChild(nameSpan);
+  let customProf = "";
+
+  customProf = buildGlobalCustomProfile()
+
+  lastProfile.appendChild(customProf);
+
+  nameSpan.textContent = `${username}`;
+  wrapper.appendChild(nameSpan);
 
 
-    return wrapper;
+  return wrapper;
 }
 
 function buildCustomProfilePicTopGifter() {
