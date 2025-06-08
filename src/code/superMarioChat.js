@@ -110,19 +110,15 @@ const avatarFrames = [
 ];
 
 const randomMaterialColors = [
-  '#FFCDD2', // Light Red
-  '#F8BBD0', // Pink
-  '#E1BEE7', // Purple
-  '#D1C4E9', // Deep Purple
-  '#C5CAE9', // Indigo
-  '#BBDEFB', // Light Blue
-  '#B3E5FC', // Cyan
-  '#B2DFDB', // Teal
-  '#C8E6C9', // Light Green
-  '#DCEDC8', // Lime
-  '#FFF9C4', // Yellow
-  '#FFE0B2', // Amber
-  '#FFCCBC', // Orange
+  '#2E7D32', // Green 800
+  '#0277BD', // Light blue 800
+  '#00838F', // Cyan50 800
+  '#00695C', // Teal50 800 
+  '#4527A0', // DeepPurple50 800
+  '#283593', // Indigo 800
+  '#1565C0', // Blue50 800
+  '#FF5252', // Red50 A200
+  '#E040FB', // Purple50 A200
 ];
 
 // Escuchar nuevos mensajes
