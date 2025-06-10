@@ -106,7 +106,20 @@ const avatarFrames = [
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/rosaline.png",
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/skeleton.png",
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/waluigi.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png"
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babybowser.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babydaisy.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babypeach.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/birdo.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/diddykon.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/donkeykong.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/ghost.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/kingbomb.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/lakito.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luma.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/shyguy.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toaddete.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/topo.png",
 ];
 
 const randomMaterialColors = [
