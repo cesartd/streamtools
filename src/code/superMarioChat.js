@@ -324,7 +324,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
           modIcon.style.verticalAlign = 'middle';
           wrapper.appendChild(modIcon);
 
-        } else if (isSubscriber == true) {
+        } else if (isSubscriber == true && item.includes("fans")) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
           modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
@@ -340,15 +340,18 @@ function buildCustomName(badges, username, isSubscriber, type) {
     }
   }
 
-  const profilePics = document.querySelectorAll('.hl-leftside');
-  const lastProfile = profilePics[profilePics.length - 1];
-  if (!lastProfile) return;
+  if (isSubscriber == false) {
+    const profilePics = document.querySelectorAll('.hl-leftside');
+    const lastProfile = profilePics[profilePics.length - 1];
+    if (!lastProfile) return;
 
-  let customProf = "";
+    let customProf = "";
 
-  customProf = buildGlobalCustomProfile()
+    customProf = buildGlobalCustomProfile()
 
-  lastProfile.appendChild(customProf);
+    lastProfile.appendChild(customProf);
+  }
+
 
   nameSpan.textContent = `${username}`;
   wrapper.appendChild(nameSpan);
