@@ -119,7 +119,7 @@ const avatarFrames = [
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luma.png",
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/shyguy.png",
   "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toaddete.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/topo.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/topo.png"
 ];
 
 const randomMaterialColors = [
