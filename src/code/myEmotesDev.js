@@ -113,7 +113,7 @@ window.addEventListener('message', (event) => {
       isSubscriber = true;
     }
 
-    if (isSubscriber == true) { // si es suscriptor
+    if (type.localeCompare("tiktok") == 0 && isSubscriber == true) { // si es suscriptor y es usuario de TikTok
       lastBorder.classList.add('sub-border');
       const profilePics = document.querySelectorAll('.hl-leftside');
       const lastProfile = profilePics[profilePics.length - 1];
