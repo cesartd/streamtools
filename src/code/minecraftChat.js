@@ -148,9 +148,14 @@ window.addEventListener('message', (event) => {
       const lastProfile = profilePics[profilePics.length - 1];
       if (!lastProfile) return;
 
-      // Construir el nuevo estilo de perfil del suscriptor
-      const customProf = buildGlobalCustomProfile();
-      lastProfile.appendChild(customProf);
+      // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+      const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
+
+      if (!alreadyHasFrame) {
+        // Si no existe, se agrega la nueva imagen
+        const customProf = buildGlobalCustomProfile();
+        lastProfile.appendChild(customProf);
+      }
 
       // Resaltar el nombre del último usuario
       const userNameContainer = document.querySelectorAll('.hl-righttopline');
@@ -293,7 +298,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
         // Si el badge es de moderador, añade el ícono correspondiente
         const modIcon = document.createElement('img');
         modIcon.src = item; // Cambia esto por el ícono que prefieras
-        modIcon.alt = 'badge';
         modIcon.style.width = '30px';
         modIcon.style.height = '30px';
         modIcon.style.marginRight = '4px';
@@ -308,7 +312,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
           modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'Mod';
           modIcon.style.width = '30px';
           modIcon.style.height = '30px';
           modIcon.style.marginRight = '4px';
@@ -319,7 +322,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
           modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'Mod';
           modIcon.style.width = '30px';
           modIcon.style.height = '30px';
           modIcon.style.marginRight = '4px';
@@ -336,11 +338,17 @@ function buildCustomName(badges, username, isSubscriber, type) {
     const lastProfile = profilePics[profilePics.length - 1];
     if (!lastProfile) return;
 
-    let customProf = "";
+    // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+      const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
-    customProf = buildGlobalCustomProfile()
+      if (!alreadyHasFrame) {
+        let customProf = "";
 
-    lastProfile.appendChild(customProf);
+        // Si no existe, se agrega la nueva imagen
+         customProf = buildGlobalCustomProfile();
+        lastProfile.appendChild(customProf);
+      }
+      
   }
 
 
@@ -351,78 +359,14 @@ function buildCustomName(badges, username, isSubscriber, type) {
   return wrapper;
 }
 
-function buildCustomProfilePicTopGifter() {
-
-
-
-  const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border2.png'; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'TopGifter';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
-}
-
-function buildCustomProfilePicFans(tier) {
-
-  const fanIcon = document.createElement('img');
-
-  if (tier == 1) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-1.png'; // Cambia esto por el ícono que prefieras
-  } else if (tier == 2) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-2.png'; // Cambia esto por el ícono que prefieras
-  } else if (tier == 3) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-3.png'; // Cambia esto por el ícono que prefieras
-  }
-
-  fanIcon.alt = 'member';
-  fanIcon.className = 'mod'
-  fanIcon.style.marginRight = '4px';
-  fanIcon.style.verticalAlign = 'middle';
-  fanIcon.style.width = '150%';
-  fanIcon.style.height = '114px';
-  fanIcon.style.position = 'relative';
-  fanIcon.style.float = 'left';
-  fanIcon.style.bottom = '118px';
-  fanIcon.style.right = '19px';
-
-  return fanIcon;
-}
-
-function buildCustomProfilePicSubscriber() {
-
-  const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/border_sub.png'; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'Sub';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
-}
 
 function buildGlobalCustomProfile() {
 
   const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
 
   const modIcon = document.createElement('img');
-  modIcon.src = randomFrame; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'generalUser';
-  modIcon.className = 'mod'
+  modIcon.src = randomFrame; 
+  modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
   modIcon.style.width = '150%';
