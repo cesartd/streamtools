@@ -326,6 +326,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
       });
     } else {
       badges.forEach(function (item) {
+        if (typeof item.includes === 'function') {
         if (item.includes("moderater")) {
           // Si el badge es de moderador, añade el ícono correspondiente
           const modIcon = document.createElement('img');
@@ -349,7 +350,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
           wrapper.appendChild(modIcon);
         }
 
-      });
+      }});
     }
   }
 
