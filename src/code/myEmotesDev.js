@@ -60,26 +60,14 @@ document.head.appendChild(styleTag);
 
 // Configura tus comandos y sus respectivas URLs de emotes aquí
 const emoteCommands = {
-  'sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
-  'shaha': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_laugh.png',
-  'ssad': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sad.png',
-  'sbonk': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_bonk.png',
-  'syumi': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_eat.png',
-  'sflor': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_flower.png',
-  'sgun': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_gun.png',
-  'ssusto': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_scary.png',
-  'ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
-  'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
-  'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
-  'weno': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
-  'aywe': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
+  'ora': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
+  'alv': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
-  'gak': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
+  'gok': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
   'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
-  'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
+  'muchotexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
   'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
   'yiyi': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
-  'tapotente': 'https://cesartd.github.io/streamtools/src/img/random/tapotente.png',
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
   'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
   'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
@@ -283,17 +271,26 @@ function buildCustomName(badges, username, isSubscriber, type) {
               const lastProfile = profilePics[profilePics.length - 1];
               if (!lastProfile) return;
 
-              let customProf = "";
+              // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+              const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
-              // Construir el nuevo contenido
-              if (item.includes("lv20")) {
-                customProf = buildCustomProfilePicFans(3);
-              } else if (item.includes("lv10")) {
-                customProf = buildCustomProfilePicFans(2);
-              } else if (item.includes("lv1")) {
-                customProf = buildCustomProfilePicFans(1);
+              if (!alreadyHasFrame) {
+                let customProf = "";
+
+                // Construir el nuevo contenido
+                if (item.includes("lv20")) {
+                  customProf = buildCustomProfilePicFans(3);
+                } else if (item.includes("lv10")) {
+                  customProf = buildCustomProfilePicFans(2);
+                } else if (item.includes("lv1")) {
+                  customProf = buildCustomProfilePicFans(1);
+                }
+                lastProfile.appendChild(customProf);
+
               }
-              lastProfile.appendChild(customProf);
+
+
+
 
             } else {
               // Si el badge es de moderador, añade el ícono correspondiente
@@ -327,7 +324,7 @@ function buildCustomProfilePicTopGifter() {
   const modIcon = document.createElement('img');
   modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border2.png'; // Cambia esto por el ícono que prefieras
   modIcon.alt = 'TopGifter';
-  modIcon.className = 'mod'
+  modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
   modIcon.style.width = '150%';
@@ -353,7 +350,7 @@ function buildCustomProfilePicFans(tier) {
   }
 
   fanIcon.alt = 'member';
-  fanIcon.className = 'mod'
+  fanIcon.className = 'custom-frame'
   fanIcon.style.marginRight = '4px';
   fanIcon.style.verticalAlign = 'middle';
   fanIcon.style.width = '150%';
@@ -366,30 +363,14 @@ function buildCustomProfilePicFans(tier) {
   return fanIcon;
 }
 
-function buildCustomProfilePicSubscriber() {
 
-  const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/border_sub.png'; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'Sub';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
-}
 
 function buildCustomProfilePicTwitch() {
 
   const modIcon = document.createElement('img');
   modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set-twitch-1.png'; // Cambia esto por el ícono que prefieras
   modIcon.alt = 'twitchuser';
-  modIcon.className = 'mod'
+  modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
   modIcon.style.width = '150%';
