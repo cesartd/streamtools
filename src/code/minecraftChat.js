@@ -229,6 +229,17 @@ window.addEventListener('message', (event) => {
         user: username
       }));
     }
+    
+    // Detectar comando "!enderman" en el chat
+  }else if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
+    // Enviar comando a Streamer.bot por WebSocket
+    if (sbSocket.readyState === WebSocket.OPEN) {
+      sbSocket.send(JSON.stringify({
+        type: "obs-action",
+        command: "showEnderman",
+        user: username
+      }));
+    }
   }
 
 });
