@@ -220,7 +220,7 @@ window.addEventListener('message', (event) => {
   }, 50);
 
    // Detectar comando "!creeper" en el chat
-  if (msg === "!creeper" || msg.startsWith("!creeper")) {
+  if (messageText === "!creeper" || messageText.startsWith("!creeper")) {
     // Enviar comando a Streamer.bot por WebSocket
     if (sbSocket.readyState === WebSocket.OPEN) {
       sbSocket.send(JSON.stringify({
