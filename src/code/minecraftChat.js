@@ -116,6 +116,18 @@ const randomMaterialColors = [
   '#689F38'  // light green 700
 ];
 
+// WebSocket con Streamer.bot (servidor activo en puerto 8123)
+const sbSocket = new WebSocket("ws://localhost:8123");
+
+sbSocket.addEventListener("open", () => {
+  console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
+});
+
+sbSocket.addEventListener("error", () => {
+  console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
+});
+
+
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
   const data = event.data;
@@ -206,6 +218,19 @@ window.addEventListener('message', (event) => {
     lastName.appendChild(customName);
 
   }, 50);
+
+   // Detectar comando "!creeper" en el chat
+  if (msg === "!creeper" || msg.startsWith("!creeper")) {
+    // Enviar comando a Streamer.bot por WebSocket
+    if (sbSocket.readyState === WebSocket.OPEN) {
+      sbSocket.send(JSON.stringify({
+        type: "obs-action",
+        command: "showCreeper",
+        user: username
+      }));
+    }
+  }
+
 });
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
