@@ -127,6 +127,9 @@ sbSocket.addEventListener("error", () => {
   console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
 });
 
+const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
+const COOLDOWN_MS = 15000; // 15 segundos de cooldown
+
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -228,6 +231,17 @@ window.addEventListener('message', (event) => {
 
   if (messageText.startsWith("!batalla")) {
 
+    const now = Date.now();
+    const lastUsed = cooldowns.get(username) || 0;
+
+    if (now - lastUsed < COOLDOWN_MS) {
+      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
+      return; // ignorar si está en cooldown
+    }
+
+    // Registrar nuevo tiempo de uso
+    cooldowns.set(username, now);
+
     const msg = messageText.trim();
     const parts = msg.split(" ");
 
@@ -259,6 +273,17 @@ function showFakeChatMessage(text) {
   const msgBox = document.createElement("div");
   msgBox.textContent = text;
   msgBox.className = "highlight-comment";
+
+  container.appendChild(msgBox);
+
+}
+
+function showWarningChatMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.className = "warning-comment";
 
   container.appendChild(msgBox);
 
