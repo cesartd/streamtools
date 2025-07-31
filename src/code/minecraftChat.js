@@ -219,7 +219,7 @@ window.addEventListener('message', (event) => {
 
   }, 50);
 
-   // Detectar comando "!creeper" en el chat
+  // Detectar comando "!creeper" en el chat
   if (messageText === "!creeper" || messageText.startsWith("!creeper")) {
     // Enviar comando a Streamer.bot por WebSocket
     if (sbSocket.readyState === WebSocket.OPEN) {
@@ -229,9 +229,9 @@ window.addEventListener('message', (event) => {
         user: username
       }));
     }
-    
+
     // Detectar comando "!enderman" en el chat
-  }else if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
+  } else if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
     // Enviar comando a Streamer.bot por WebSocket
     if (sbSocket.readyState === WebSocket.OPEN) {
       sbSocket.send(JSON.stringify({
@@ -242,7 +242,49 @@ window.addEventListener('message', (event) => {
     }
   }
 
+
+  if (messageText.startsWith("!batalla")) {
+
+    const msg = data.messageText.trim();
+    const parts = msg.split(" ");
+
+    if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+      const user = username; // Nombre del usuario que envió el mensaje
+      const opponent = parts.slice(1).join(" ");
+
+      const players = [user, opponent];
+      const winner = players[Math.floor(Math.random() * 2)];
+
+      setTimeout(() => {
+
+        // Mostrar resultado en el overlay como mensaje automático
+      showFakeChatMessage(`El ganador es ${winner}`);
+    
+    }, 5000);
+    }
+  }
 });
+
+
+function showFakeChatMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.style.background = "rgba(0, 0, 0, 0.6)";
+  msgBox.style.color = "white";
+  msgBox.style.padding = "10px 15px";
+  msgBox.style.margin = "8px";
+  msgBox.style.borderRadius = "15px";
+  msgBox.style.fontFamily = "sans-serif";
+  msgBox.style.fontSize = "18px";
+  msgBox.style.maxWidth = "fit-content";
+  msgBox.style.transition = "opacity 0.5s ease";
+  msgBox.style.opacity = "1";
+
+  container.appendChild(msgBox);
+
+}
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
 function decodeHTML(html) {
@@ -344,28 +386,29 @@ function buildCustomName(badges, username, isSubscriber, type) {
     } else {
       badges.forEach(function (item) {
         if (typeof item.includes === 'function') {
-        if (item.includes("moderater")) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
+          if (item.includes("moderater")) {
+            // Si el badge es de moderador, añade el ícono correspondiente
+            const modIcon = document.createElement('img');
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
+            modIcon.style.marginRight = '4px';
+            modIcon.style.verticalAlign = 'middle';
+            wrapper.appendChild(modIcon);
 
-        } else if (isSubscriber == true && item.includes("fans")) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
+          } else if (isSubscriber == true && item.includes("fans")) {
+            // Si el badge es de moderador, añade el ícono correspondiente
+            const modIcon = document.createElement('img');
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
+            modIcon.style.marginRight = '4px';
+            modIcon.style.verticalAlign = 'middle';
+            wrapper.appendChild(modIcon);
+          }
+
         }
-
-      }});
+      });
     }
   }
 
@@ -375,16 +418,16 @@ function buildCustomName(badges, username, isSubscriber, type) {
     if (!lastProfile) return;
 
     // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
-      const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
+    const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
-      if (!alreadyHasFrame) {
-        let customProf = "";
+    if (!alreadyHasFrame) {
+      let customProf = "";
 
-        // Si no existe, se agrega la nueva imagen
-         customProf = buildGlobalCustomProfile();
-        lastProfile.appendChild(customProf);
-      }
-      
+      // Si no existe, se agrega la nueva imagen
+      customProf = buildGlobalCustomProfile();
+      lastProfile.appendChild(customProf);
+    }
+
   }
 
 
@@ -401,7 +444,7 @@ function buildGlobalCustomProfile() {
   const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
 
   const modIcon = document.createElement('img');
-  modIcon.src = randomFrame; 
+  modIcon.src = randomFrame;
   modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
