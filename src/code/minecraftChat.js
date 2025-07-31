@@ -219,11 +219,13 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!creeper") || messageText.startsWith("!enderman")) {
 
     const now = Date.now();
-    
+
     if (now - lastGlobalTriggerTime < GLOBAL_COOLDOWN_MS) {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
       return;
     }
+
+    lastGlobalTriggerTime = now;
 
     if (sbSocket.readyState === WebSocket.OPEN) {
       sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
