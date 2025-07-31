@@ -46,15 +46,6 @@ styleTag.textContent = `
   margin: 8px !important;
 }
 
-.bubble.twitch-border {
-  border: 2px solid transparent !important;
-  border-radius: 16px !important;
-  background: linear-gradient(135deg, rgba(187, 87, 245, 0.5), rgba(30, 40, 41, 0.6)) !important;
-  animation: rainbowGlow 3s ease-in-out infinite;
-  padding: 8px !important;
-  margin: 8px 0 !important;
-}
-
 `;
 document.head.appendChild(styleTag);
 
