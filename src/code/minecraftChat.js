@@ -218,7 +218,7 @@ window.addEventListener('message', (event) => {
     lastName.appendChild(customName);
 
   // Detectar comandos y reenviarlos
-  if (msg.startsWith("!creeper") || msg.startsWith("!enderman")) {
+  if (messageText.startsWith("!creeper") || messageText.startsWith("!enderman")) {
     if (sbSocket.readyState === WebSocket.OPEN) {
       sbSocket.send(msg); // Enviar el comando puro a Streamer.bot
     }
