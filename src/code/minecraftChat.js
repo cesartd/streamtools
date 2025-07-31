@@ -258,16 +258,7 @@ function showFakeChatMessage(text) {
 
   const msgBox = document.createElement("div");
   msgBox.textContent = text;
-  msgBox.style.background = "rgba(0, 0, 0, 0.6)";
-  msgBox.style.color = "white";
-  msgBox.style.padding = "10px 15px";
-  msgBox.style.margin = "8px";
-  msgBox.style.borderRadius = "15px";
-  msgBox.style.fontFamily = "sans-serif";
-  msgBox.style.fontSize = "18px";
-  msgBox.style.maxWidth = "fit-content";
-  msgBox.style.transition = "opacity 0.5s ease";
-  msgBox.style.opacity = "1";
+  msgBox.className = "highlight-comment";
 
   container.appendChild(msgBox);
 
