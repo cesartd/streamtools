@@ -245,7 +245,7 @@ window.addEventListener('message', (event) => {
 
   if (messageText.startsWith("!batalla")) {
 
-    const msg = data.messageText.trim();
+    const msg = messageText.trim();
     const parts = msg.split(" ");
 
     if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
