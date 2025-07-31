@@ -121,6 +121,9 @@ sbSocket.addEventListener("error", () => {
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
 const COOLDOWN_MS = 15000; // 15 segundos de cooldown
 
+// Global cooldown
+let lastGlobalTriggerTime = 0;
+const GLOBAL_COOLDOWN_MS = 10 * 60 * 1000; // 10 minutos en milisegundos
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -211,11 +214,21 @@ window.addEventListener('message', (event) => {
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
+    
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper") || messageText.startsWith("!enderman")) {
+
+    const now = Date.now();
+    
+    if (now - lastGlobalTriggerTime < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      return;
+    }
+
     if (sbSocket.readyState === WebSocket.OPEN) {
       sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
     }
+    
   }
 
 
