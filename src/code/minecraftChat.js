@@ -117,7 +117,7 @@ const randomMaterialColors = [
 ];
 
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)
-const sbSocket = new WebSocket("ws://localhost:8080");
+const sbSocket = new WebSocket("ws://localhost:8123");
 
 sbSocket.addEventListener("open", () => {
   console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
