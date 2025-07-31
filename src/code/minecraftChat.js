@@ -220,7 +220,7 @@ window.addEventListener('message', (event) => {
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper") || messageText.startsWith("!enderman")) {
     if (sbSocket.readyState === WebSocket.OPEN) {
-      sbSocket.send(msg); // Enviar el comando puro a Streamer.bot
+      sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
     }
   }
 
