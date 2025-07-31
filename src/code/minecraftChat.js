@@ -217,12 +217,11 @@ window.addEventListener('message', (event) => {
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
-  }, 50);
-
-  // Detectar comando "!creeper" en el chat
+      // Detectar comando "!creeper" en el chat
   if (messageText === "!creeper" || messageText.startsWith("!creeper")) {
     // Enviar comando a Streamer.bot por WebSocket
     if (sbSocket.readyState === WebSocket.OPEN) {
+      console.log("trigger creeper");
       sbSocket.send(JSON.stringify({
         type: "obs-action",
         command: "showCreeper",
@@ -230,10 +229,14 @@ window.addEventListener('message', (event) => {
       }));
     }
 
-    // Detectar comando "!enderman" en el chat
-  } else if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
+    
+  } 
+  
+  // Detectar comando "!enderman" en el chat
+  if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
     // Enviar comando a Streamer.bot por WebSocket
     if (sbSocket.readyState === WebSocket.OPEN) {
+      console.log("trigger enderman");
       sbSocket.send(JSON.stringify({
         type: "obs-action",
         command: "showEnderman",
@@ -263,6 +266,10 @@ window.addEventListener('message', (event) => {
     }, 5000);
     }
   }
+
+  }, 50);
+
+
 });
 
 
