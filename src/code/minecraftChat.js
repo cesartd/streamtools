@@ -217,33 +217,13 @@ window.addEventListener('message', (event) => {
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
-      // Detectar comando "!creeper" en el chat
-  if (messageText === "!creeper" || messageText.startsWith("!creeper")) {
-    // Enviar comando a Streamer.bot por WebSocket
+  // Detectar comandos y reenviarlos
+  if (msg.startsWith("!creeper") || msg.startsWith("!enderman")) {
     if (sbSocket.readyState === WebSocket.OPEN) {
-      console.log("trigger creeper");
-      sbSocket.send(JSON.stringify({
-        type: "obs-action",
-        command: "showCreeper",
-        user: username
-      }));
-    }
-
-    
-  } 
-  
-  // Detectar comando "!enderman" en el chat
-  if (messageText === "!enderman" || messageText.startsWith("!enderman")) {
-    // Enviar comando a Streamer.bot por WebSocket
-    if (sbSocket.readyState === WebSocket.OPEN) {
-      console.log("trigger enderman");
-      sbSocket.send(JSON.stringify({
-        type: "obs-action",
-        command: "showEnderman",
-        user: username
-      }));
+      sbSocket.send(msg); // Enviar el comando puro a Streamer.bot
     }
   }
+
 
 
   if (messageText.startsWith("!batalla")) {
@@ -263,7 +243,7 @@ window.addEventListener('message', (event) => {
         // Mostrar resultado en el overlay como mensaje automático
       showFakeChatMessage(`El ganador es ${winner}`);
     
-    }, 5000);
+    }, 3000);
     }
   }
 
