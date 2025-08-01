@@ -253,7 +253,7 @@ window.addEventListener('message', (event) => {
     }
   }
 
-    // Detectar comando !felizcumple y reenviarlo
+  // Detectar comando !felizcumple y reenviarlo
   if (messageText.startsWith("!felizcumple")) {
 
     const now = Date.now();
@@ -269,7 +269,7 @@ window.addEventListener('message', (event) => {
     }
   }
 
-      // Detectar comando !raton y reenviarlo
+  // Detectar comando !raton y reenviarlo
   if (messageText.startsWith("!raton")) {
 
     const now = Date.now();
@@ -295,17 +295,18 @@ window.addEventListener('message', (event) => {
     if (now - lastUsed < COOLDOWN_MS) {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
-      // Registrar nuevo tiempo de uso
-      cooldowns.set(username, now);
-
-      const msg = messageText.trim();
-      const parts = msg.split(" ");
 
       if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
 
-          if (sbSocket.readyState === WebSocket.OPEN) {
-            sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-            }
+        // Registrar nuevo tiempo de uso
+        cooldowns.set(username, now);
+
+        const msg = messageText.trim();
+        const parts = msg.split(" ");
+
+        if (sbSocket.readyState === WebSocket.OPEN) {
+          sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+        }
 
         const user = username; // Nombre del usuario que envió el mensaje
         const opponent = parts.slice(1).join(" ");
