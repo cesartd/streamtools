@@ -296,13 +296,13 @@ window.addEventListener('message', (event) => {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
-      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
-
-        // Registrar nuevo tiempo de uso
-        cooldowns.set(username, now);
-
         const msg = messageText.trim();
         const parts = msg.split(" ");
+
+      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+        
+        // Registrar nuevo tiempo de uso
+        cooldowns.set(username, now);
 
         if (sbSocket.readyState === WebSocket.OPEN) {
           sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
