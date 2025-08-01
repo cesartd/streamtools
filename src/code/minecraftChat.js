@@ -124,7 +124,7 @@ const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
-const GLOBAL_COOLDOWN_MS = 10 * 60 * 1000; // 10 minutos en milisegundos
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
