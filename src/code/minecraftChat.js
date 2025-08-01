@@ -124,7 +124,10 @@ const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
-const GLOBAL_COOLDOWN_MS = 10 * 60 * 1000; // 10 minutos en milisegundos
+let lastGlobalTriggerTimeHappyBirthday = 0;
+let lastGlobalTriggerRaton = 0;
+
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -225,7 +228,6 @@ window.addEventListener('message', (event) => {
 
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-      return;
     } else {
       lastGlobalTriggerTimeCreper = now;
 
@@ -235,16 +237,47 @@ window.addEventListener('message', (event) => {
     }
   }
 
-  // Detectar comandos y reenviarlos
+  // Detectar comando !enderman y reenviarlo
   if (messageText.startsWith("!enderman")) {
 
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-      return;
     } else {
       lastGlobalTriggerTimeEnderman = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+    // Detectar comando !felizcumple y reenviarlo
+  if (messageText.startsWith("!felizcumple")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeHappyBirthday = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+      // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!raton")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerRaton < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerRaton = now;
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -261,7 +294,6 @@ window.addEventListener('message', (event) => {
 
     if (now - lastUsed < COOLDOWN_MS) {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
-      return; // ignorar si está en cooldown
     } else {
       // Registrar nuevo tiempo de uso
       cooldowns.set(username, now);
