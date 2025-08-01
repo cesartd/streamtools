@@ -302,6 +302,11 @@ window.addEventListener('message', (event) => {
       const parts = msg.split(" ");
 
       if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+
+          if (sbSocket.readyState === WebSocket.OPEN) {
+            sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+            }
+
         const user = username; // Nombre del usuario que envió el mensaje
         const opponent = parts.slice(1).join(" ");
 
