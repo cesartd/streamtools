@@ -304,7 +304,7 @@ window.addEventListener('message', (event) => {
   }
 
   // === COMANDO !MIDE ===
-  if (msg === "!memide" || msg.startsWith("!memide")) {
+  if (messageText === "!memide" || messageText.startsWith("!memide")) {
 
     const now = Date.now();
     const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
@@ -326,8 +326,6 @@ window.addEventListener('message', (event) => {
     }
 
   }
-
-
 
 
   if (messageText.startsWith("!batalla")) {
