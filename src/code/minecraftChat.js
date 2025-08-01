@@ -124,7 +124,7 @@ const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
+const GLOBAL_COOLDOWN_MS = 10 * 60 * 1000; // 10 minutos en milisegundos
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -215,7 +215,9 @@ window.addEventListener('message', (event) => {
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
-    
+  }, 50);
+
+
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper")) {
 
@@ -224,17 +226,16 @@ window.addEventListener('message', (event) => {
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
       return;
-    }
+    } else {
+      lastGlobalTriggerTimeCreper = now;
 
-    lastGlobalTriggerTimeCreper = now;
-
-    if (sbSocket.readyState === WebSocket.OPEN) {
-      sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
     }
-    
   }
 
-    // Detectar comandos y reenviarlos
+  // Detectar comandos y reenviarlos
   if (messageText.startsWith("!enderman")) {
 
     const now = Date.now();
@@ -242,14 +243,13 @@ window.addEventListener('message', (event) => {
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
       return;
-    }
+    } else {
+      lastGlobalTriggerTimeEnderman = now;
 
-    lastGlobalTriggerTimeEnderman = now;
-
-    if (sbSocket.readyState === WebSocket.OPEN) {
-      sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
     }
-    
   }
 
 
@@ -262,32 +262,29 @@ window.addEventListener('message', (event) => {
     if (now - lastUsed < COOLDOWN_MS) {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
       return; // ignorar si está en cooldown
-    }
+    } else {
+      // Registrar nuevo tiempo de uso
+      cooldowns.set(username, now);
 
-    // Registrar nuevo tiempo de uso
-    cooldowns.set(username, now);
+      const msg = messageText.trim();
+      const parts = msg.split(" ");
 
-    const msg = messageText.trim();
-    const parts = msg.split(" ");
+      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+        const user = username; // Nombre del usuario que envió el mensaje
+        const opponent = parts.slice(1).join(" ");
 
-    if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
-      const user = username; // Nombre del usuario que envió el mensaje
-      const opponent = parts.slice(1).join(" ");
+        const players = [user, opponent];
+        const winner = players[Math.floor(Math.random() * 2)];
 
-      const players = [user, opponent];
-      const winner = players[Math.floor(Math.random() * 2)];
+        setTimeout(() => {
 
-      setTimeout(() => {
+          // Mostrar resultado en el overlay como mensaje automático
+          showFakeChatMessage(`El ganador es ${winner}`);
 
-        // Mostrar resultado en el overlay como mensaje automático
-      showFakeChatMessage(`El ganador es ${winner}`);
-    
-    }, 3000);
+        }, 3000);
+      }
     }
   }
-
-  }, 50);
-
 
 });
 
