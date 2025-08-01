@@ -119,7 +119,6 @@ sbSocket.addEventListener("error", () => {
 });
 
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
-const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
 const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 
 // Global cooldown
@@ -127,7 +126,6 @@ let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
 let lastGlobalTriggerTimeHappyBirthday = 0;
 let lastGlobalTriggerRaton = 0;
-let lastGlobalTriggerTimeTinta = 0;
 
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
@@ -287,47 +285,6 @@ window.addEventListener('message', (event) => {
     }
   }
 
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!kumsito")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeTinta = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // === COMANDO !MIDE ===
-  if (msg === "!memide" || msg.startsWith("!memide")) {
-
-    const now = Date.now();
-    const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
-
-    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
-      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
-
-    } else {
-
-      // Registrar nuevo tiempo de uso
-      cooldownsMemide.set(username, now);
-
-      // Número aleatorio entre 0 y 40
-      const medida = Math.floor(Math.random() * 41);
-
-      // Mostrar el mensaje
-      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
-
-    }
-
-  }
-
-
 
 
   if (messageText.startsWith("!batalla")) {
@@ -339,11 +296,11 @@ window.addEventListener('message', (event) => {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
-      const msg = messageText.trim();
-      const parts = msg.split(" ");
+        const msg = messageText.trim();
+        const parts = msg.split(" ");
 
       if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
-
+        
         // Registrar nuevo tiempo de uso
         cooldowns.set(username, now);
 
@@ -376,17 +333,6 @@ function showFakeChatMessage(text) {
   const msgBox = document.createElement("div");
   msgBox.textContent = text;
   msgBox.className = "highlight-comment";
-
-  container.appendChild(msgBox);
-
-}
-
-function showMedirMessage(text) {
-  const container = document.querySelector("#output");
-
-  const msgBox = document.createElement("div");
-  msgBox.textContent = text;
-  msgBox.className = "highlight-horny-comment";
 
   container.appendChild(msgBox);
 
