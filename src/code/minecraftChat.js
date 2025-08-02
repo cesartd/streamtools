@@ -128,6 +128,7 @@ let lastGlobalTriggerTimeEnderman = 0;
 let lastGlobalTriggerTimeHappyBirthday = 0;
 let lastGlobalTriggerRaton = 0;
 let lastGlobalTriggerTimeTinta = 0;
+let lastGlobalTriggerTimeRip = 0;
 
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
@@ -325,6 +326,22 @@ window.addEventListener('message', (event) => {
 
     }
 
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
   }
 
 
