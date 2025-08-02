@@ -147,6 +147,7 @@ let lastGlobalTriggerTimeHappyBirthday = 0;
 let lastGlobalTriggerRaton = 0;
 let lastGlobalTriggerTimeTinta = 0;
 let lastGlobalTriggerTimeRip = 0;
+let lastGlobalTriggerTimeCrunchy = 0;
 
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
@@ -315,6 +316,23 @@ window.addEventListener('message', (event) => {
       showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeTinta = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!crunchy")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeCrunchy = now;
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
