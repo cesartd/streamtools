@@ -56,14 +56,16 @@ const emoteCommands = {
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
   'gok': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
   'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
-  'muchotexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
+  'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
   'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
   'yiyi': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
-  'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
+  'saluditos': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
   'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
   'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp',
   'bye': 'https://cesartd.github.io/streamtools/src/img/random/ebye.gif',
+  'hola': 'https://cesartd.github.io/streamtools/src/img/random/saria-hello.gif',
+  'jajsja': 'https://cesartd.github.io/streamtools/src/img/random/asasasas.gif'
 };
 
 const avatarFrames = [
@@ -91,20 +93,36 @@ const avatarFrames = [
 ];
 
 const randomMaterialColors = [
-  '#2E7D32', // Green 800
-  '#0277BD', // Light blue 800
-  '#00838F', // Cyan50 800
-  '#00695C', // Teal50 800 
-  '#4527A0', // DeepPurple50 800
-  '#283593', // Indigo 800
-  '#1565C0', // Blue50 800
-  '#FF5252', // Red50 A200
-  '#E040FB', // Purple50 A200
-  '#EF6C00', // Orange50 800
-  '#FF4081', // Pink50 A200
-  '#D32F2F', // Red50 700
-  '#8E24AA',  // purple50 600
-  '#689F38'  // light green 700
+  '#EC407A', // Pink 500
+  '#D81B60', // Pink 600
+  '#AB47BC', // Purple 500
+  '#8E24AA', // Purple 600
+  '#7E57C2', // Deep Purple 500
+  '#5E35B1', // Deep Purple 600
+  '#5C6BC0', // Indigo 500
+  '#3949AB', // Indigo 600
+  '#42A5F5', // Blue 500
+  '#1E88E5', // Blue 600
+  '#29B6F6', // Light Blue 400
+  '#039BE5', // Light Blue 600
+  '#26C6DA', // Cyan 400
+  '#00ACC1', // Cyan 600
+  '#26A69A', // Teal 400
+  '#00897B', // Teal 600
+  '#66BB6A', // Green 400
+  '#43A047', // Green 600
+  '#9CCC65', // Light Green 400
+  '#7CB342', // Light Green 600
+  '#D4E157', // Lime 400
+  '#C0CA33', // Lime 600
+  '#FFEE58', // Yellow 400
+  '#FDD835', // Yellow 600
+  '#FFA726', // Orange 400
+  '#FB8C00', // Orange 600
+  '#FF7043', // Deep Orange 400
+  '#F4511E', // Deep Orange 600
+  '#EF5350', // Red 400
+  '#E53935'  // Red 600
 ];
 
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)

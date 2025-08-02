@@ -56,14 +56,16 @@ const emoteCommands = {
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
   'gok': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
   'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
-  'muchotexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
+  'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
   'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
   'yiyi': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
-  'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
+  'saluditos': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
   'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
   'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp',
   'bye': 'https://cesartd.github.io/streamtools/src/img/random/ebye.gif',
+  'hola': 'https://cesartd.github.io/streamtools/src/img/random/saria-hello.gif',
+  'jajsja': 'https://cesartd.github.io/streamtools/src/img/random/asasasas.gif'
 };
 
 const avatarFrames = [
@@ -91,20 +93,36 @@ const avatarFrames = [
 ];
 
 const randomMaterialColors = [
-  '#2E7D32', // Green 800
-  '#0277BD', // Light blue 800
-  '#00838F', // Cyan50 800
-  '#00695C', // Teal50 800 
-  '#4527A0', // DeepPurple50 800
-  '#283593', // Indigo 800
-  '#1565C0', // Blue50 800
-  '#FF5252', // Red50 A200
-  '#E040FB', // Purple50 A200
-  '#EF6C00', // Orange50 800
-  '#FF4081', // Pink50 A200
-  '#D32F2F', // Red50 700
-  '#8E24AA',  // purple50 600
-  '#689F38'  // light green 700
+  '#EC407A', // Pink 500
+  '#D81B60', // Pink 600
+  '#AB47BC', // Purple 500
+  '#8E24AA', // Purple 600
+  '#7E57C2', // Deep Purple 500
+  '#5E35B1', // Deep Purple 600
+  '#5C6BC0', // Indigo 500
+  '#3949AB', // Indigo 600
+  '#42A5F5', // Blue 500
+  '#1E88E5', // Blue 600
+  '#29B6F6', // Light Blue 400
+  '#039BE5', // Light Blue 600
+  '#26C6DA', // Cyan 400
+  '#00ACC1', // Cyan 600
+  '#26A69A', // Teal 400
+  '#00897B', // Teal 600
+  '#66BB6A', // Green 400
+  '#43A047', // Green 600
+  '#9CCC65', // Light Green 400
+  '#7CB342', // Light Green 600
+  '#D4E157', // Lime 400
+  '#C0CA33', // Lime 600
+  '#FFEE58', // Yellow 400
+  '#FDD835', // Yellow 600
+  '#FFA726', // Orange 400
+  '#FB8C00', // Orange 600
+  '#FF7043', // Deep Orange 400
+  '#F4511E', // Deep Orange 600
+  '#EF5350', // Red 400
+  '#E53935'  // Red 600
 ];
 
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)
@@ -119,6 +137,7 @@ sbSocket.addEventListener("error", () => {
 });
 
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
+const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
 const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 
 // Global cooldown
@@ -126,6 +145,8 @@ let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
 let lastGlobalTriggerTimeHappyBirthday = 0;
 let lastGlobalTriggerRaton = 0;
+let lastGlobalTriggerTimeTinta = 0;
+let lastGlobalTriggerTimeRip = 0;
 
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
@@ -285,6 +306,61 @@ window.addEventListener('message', (event) => {
     }
   }
 
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!kumsito")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeTinta = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // === COMANDO !MIDE ===
+  if (messageText === "!memide" || messageText.startsWith("!memide")) {
+
+    const now = Date.now();
+    const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
+
+    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
+      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
+
+    } else {
+
+      // Registrar nuevo tiempo de uso
+      cooldownsMemide.set(username, now);
+
+      // Número aleatorio entre 0 y 40
+      const medida = Math.floor(Math.random() * 41);
+
+      // Mostrar el mensaje
+      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
+
+    }
+
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
 
 
   if (messageText.startsWith("!batalla")) {
@@ -296,11 +372,11 @@ window.addEventListener('message', (event) => {
       showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
-        const msg = messageText.trim();
-        const parts = msg.split(" ");
+      const msg = messageText.trim();
+      const parts = msg.split(" ");
 
       if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
-        
+
         // Registrar nuevo tiempo de uso
         cooldowns.set(username, now);
 
@@ -333,6 +409,17 @@ function showFakeChatMessage(text) {
   const msgBox = document.createElement("div");
   msgBox.textContent = text;
   msgBox.className = "highlight-comment";
+
+  container.appendChild(msgBox);
+
+}
+
+function showMedirMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.className = "highlight-horny-comment";
 
   container.appendChild(msgBox);
 
@@ -504,10 +591,10 @@ function buildCustomName(badges, username, isSubscriber, type) {
 
 function buildGlobalCustomProfile() {
 
-  const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
+  //const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
 
   const modIcon = document.createElement('img');
-  modIcon.src = randomFrame;
+  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame.png';
   modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
