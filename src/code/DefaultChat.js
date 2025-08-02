@@ -187,7 +187,7 @@ window.addEventListener('message', (event) => {
 
       if (!alreadyHasFrame) {
         // Si no existe, se agrega la nueva imagen
-        const customProf = buildGlobalCustomProfile();
+        const customProf = buildGlobalCustomProfile(type);
         lastProfile.appendChild(customProf);
       }
 
@@ -574,7 +574,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
       let customProf = "";
 
       // Si no existe, se agrega la nueva imagen
-      customProf = buildGlobalCustomProfile();
+      customProf = buildGlobalCustomProfile(type);
       lastProfile.appendChild(customProf);
     }
 
@@ -589,12 +589,18 @@ function buildCustomName(badges, username, isSubscriber, type) {
 }
 
 
-function buildGlobalCustomProfile() {
+function buildGlobalCustomProfile(type) {
 
   //const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
 
   const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame.png';
+
+  if (type.localeCompare("twitch") == 0) {
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame-purple.png';
+  } else {
+    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame.png';
+  }
+
   modIcon.className = 'custom-frame'
   modIcon.style.marginRight = '4px';
   modIcon.style.verticalAlign = 'middle';
@@ -607,5 +613,6 @@ function buildGlobalCustomProfile() {
 
   return modIcon;
 }
+
 
 
