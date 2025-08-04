@@ -159,7 +159,7 @@ window.addEventListener('message', (event) => {
   const rawUsername = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
   let username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
   if(username.length === 0){
-    username = "Usuario";
+    username = "botsito";
   }; // Si el nombre queda vacío, setear uno generico
   const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
@@ -216,7 +216,7 @@ window.addEventListener('message', (event) => {
   }
 
   // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!raton")) {
+  if (messageText.startsWith("!reaton")) {
 
     const now = Date.now();
 
