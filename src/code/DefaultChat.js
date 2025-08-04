@@ -127,18 +127,9 @@ const randomMaterialColors = [
 
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)
 const sbSocket = new WebSocket("ws://localhost:8123");
-
-sbSocket.addEventListener("open", () => {
-  console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
-});
-
-sbSocket.addEventListener("error", () => {
-  console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
-});
-
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
-const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
-const COOLDOWN_MS = 180000; // 3 segundos de cooldown
+const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
+const COOLDOWN_MS = 60000; // 1 minuto de cooldown
 
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
@@ -148,8 +139,17 @@ let lastGlobalTriggerRaton = 0;
 let lastGlobalTriggerTimeTinta = 0;
 let lastGlobalTriggerTimeRip = 0;
 let lastGlobalTriggerTimeCrunchy = 0;
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
+sbSocket.addEventListener("open", () => {
+  console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
+});
+
+sbSocket.addEventListener("error", () => {
+  console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
+});
+
+
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -157,99 +157,24 @@ window.addEventListener('message', (event) => {
   if (!data || !data.dataReceived) return; // Ignorar si no es un mensaje válido
 
   const messageText = data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
-  const username = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  const rawUsername = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  let username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
+  if(username.length === 0){
+    username = "botsito";
+  }; // Si el nombre queda vacío, setear uno generico
   const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
   const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
 
-  setTimeout(() => {
-    const bubbles = document.querySelectorAll('.hl-content');
-    const lastBubble = bubbles[bubbles.length - 1];
-    if (!lastBubble) return;
-
-    const bubblesBorder = document.querySelectorAll('.bubble');
-    const lastBorder = bubblesBorder[bubblesBorder.length - 1];
-    if (!lastBorder) return;
-
-    let isSubscriber = false;
-
-    if (isSub.localeCompare("SUBSCRIBER") == 0) {
-      isSubscriber = true;
-    }
-
-    if (isSubscriber == true) { // si es suscriptor
-      lastBorder.classList.add('sub-border');
-      const profilePics = document.querySelectorAll('.hl-leftside');
-      const lastProfile = profilePics[profilePics.length - 1];
-      if (!lastProfile) return;
-
-      // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
-      const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
-
-      if (!alreadyHasFrame) {
-        // Si no existe, se agrega la nueva imagen
-        const customProf = buildGlobalCustomProfile(type);
-        lastProfile.appendChild(customProf);
-      }
-
-      // Resaltar el nombre del último usuario
-      const userNameContainer = document.querySelectorAll('.hl-righttopline');
-      const lastUserNameContainer = userNameContainer[profilePics.length - 1];
-      if (!lastUserNameContainer) return;
-
-      // Cambiar el color de fondo del último nombre de usuario
-      lastUserNameContainer.style.backgroundColor = 'goldenrod';
-    } else {
-
-      if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
-        lastBorder.classList.add('twitch-border');
-      } else {
-        const profilePics = document.querySelectorAll('.hl-leftside');
-        const lastProfile = profilePics[profilePics.length - 1];
-        if (!lastProfile) return;
-
-        // Resaltar el nombre del último usuario
-        const userNameContainer = document.querySelectorAll('.hl-righttopline');
-        const lastUserNameContainer = userNameContainer[profilePics.length - 1];
-        if (!lastUserNameContainer) return;
-
-        const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
-
-        // Cambiar el color de fondo del último nombre de usuario
-        lastUserNameContainer.style.backgroundColor = randomColor;
-      }
-
-    }
-
-
-
-
-    let limpio = messageText.replace(/<\/?i>/g, "");
-
-    // Construir el nuevo contenido
-    const customContent = buildCustomMessage(limpio);
-    lastBubble.innerHTML = '';
-    lastBubble.appendChild(customContent);
-
-    const names = document.querySelectorAll('.hl-name');
-    const lastName = names[names.length - 1];
-    if (!lastName) return;
-
-    // Poner medallas de fans y moderadores
-    const customName = buildCustomName(badges, username, isSubscriber, type);
-    lastName.innerHTML = '';
-    lastName.appendChild(customName);
-
-  }, 50);
 
 
   // Detectar comandos y reenviarlos
-  if (messageText.startsWith("!creeper")) {
+  if (messageText.startsWith("!bailesito")) {
 
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeCreper = now;
 
@@ -265,7 +190,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeEnderman = now;
 
@@ -281,7 +206,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeHappyBirthday = now;
 
@@ -292,12 +217,12 @@ window.addEventListener('message', (event) => {
   }
 
   // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!raton")) {
+  if (messageText.startsWith("!reaton")) {
 
     const now = Date.now();
 
     if (now - lastGlobalTriggerRaton < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerRaton = now;
 
@@ -313,7 +238,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeTinta = now;
 
@@ -325,12 +250,28 @@ window.addEventListener('message', (event) => {
 
   
   // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+    // Detectar comando !raton y reenviarlo
   if (messageText.startsWith("!crunchy")) {
 
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeCrunchy = now;
 
@@ -363,23 +304,6 @@ window.addEventListener('message', (event) => {
     }
 
   }
-
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!rip")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeRip = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
 
   if (messageText.startsWith("!batalla")) {
 
@@ -417,6 +341,72 @@ window.addEventListener('message', (event) => {
       }
     }
   }
+
+  setTimeout(() => {
+    const bubbles = document.querySelectorAll('.hl-content');
+    const lastBubble = bubbles[bubbles.length - 1];
+    if (!lastBubble) return;
+
+    const bubblesBorder = document.querySelectorAll('.bubble');
+    const lastBorder = bubblesBorder[bubblesBorder.length - 1];
+    if (!lastBorder) return;
+
+    let isSubscriber = false;
+
+    if (isSub.localeCompare("SUBSCRIBER") == 0) {
+      isSubscriber = true;
+    }
+
+    if (isSubscriber == true) { // si es suscriptor
+      lastBorder.classList.add('sub-border');
+      const profilePics = document.querySelectorAll('.hl-leftside');
+
+      // Resaltar el nombre del último usuario
+      const userNameContainer = document.querySelectorAll('.hl-righttopline');
+      const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+      if (!lastUserNameContainer) return;
+
+      // Cambiar el color de fondo del último nombre de usuario
+      lastUserNameContainer.style.backgroundColor = 'goldenrod';
+    } else {
+
+      if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
+        lastBorder.classList.add('twitch-border');
+      } else {
+        const profilePics = document.querySelectorAll('.hl-leftside');
+        const lastProfile = profilePics[profilePics.length - 1];
+        if (!lastProfile) return;
+
+        // Resaltar el nombre del último usuario
+        const userNameContainer = document.querySelectorAll('.hl-righttopline');
+        const lastUserNameContainer = userNameContainer[profilePics.length - 1];
+        if (!lastUserNameContainer) return;
+
+        //const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
+        const randomColor = '#8E24AA'; // Morado material 600
+        // Cambiar el color de fondo del último nombre de usuario
+        lastUserNameContainer.style.backgroundColor = randomColor;
+      }
+
+    }
+
+    let limpio = messageText.replace(/<\/?i>/g, "");
+
+    // Construir el nuevo contenido
+    const customContent = buildCustomMessage(limpio);
+    lastBubble.innerHTML = '';
+    lastBubble.appendChild(customContent);
+
+    const names = document.querySelectorAll('.hl-name');
+    const lastName = names[names.length - 1];
+    if (!lastName) return;
+
+    // Poner medallas de fans y moderadores
+    const customName = buildCustomName(badges, username, isSubscriber, type);
+    lastName.innerHTML = '';
+    lastName.appendChild(customName);
+
+  }, 50);
 
 });
 
@@ -580,24 +570,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
     }
   }
 
-  if (isSubscriber == false) {
-    const profilePics = document.querySelectorAll('.hl-leftside');
-    const lastProfile = profilePics[profilePics.length - 1];
-    if (!lastProfile) return;
-
-    // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
-    const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
-
-    if (!alreadyHasFrame) {
-      let customProf = "";
-
-      // Si no existe, se agrega la nueva imagen
-      customProf = buildGlobalCustomProfile(type);
-      lastProfile.appendChild(customProf);
-    }
-
-  }
-
 
   nameSpan.textContent = `${username}`;
   wrapper.appendChild(nameSpan);
@@ -606,31 +578,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
   return wrapper;
 }
 
-
-function buildGlobalCustomProfile(type) {
-
-  //const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
-
-  const modIcon = document.createElement('img');
-
-  if (type.localeCompare("twitch") == 0) {
-    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame-purple.png';
-  } else {
-    modIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/cat-frame.png';
-  }
-
-  modIcon.className = 'custom-frame'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
+function limpiaNombreDeUsuario(nombre) {
+  return nombre.replace(/[^\w\s]/gi, '').trim(); // Conserva letras, números y espacios
 }
-
-
-

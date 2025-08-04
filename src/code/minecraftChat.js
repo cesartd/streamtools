@@ -271,7 +271,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeCrunchy = now;
 
