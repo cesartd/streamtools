@@ -138,6 +138,7 @@ let lastGlobalTriggerTimeHappyBirthday = 0;
 let lastGlobalTriggerRaton = 0;
 let lastGlobalTriggerTimeTinta = 0;
 let lastGlobalTriggerTimeRip = 0;
+let lastGlobalTriggerTimeCrunchy = 0;
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
 sbSocket.addEventListener("open", () => {
@@ -168,7 +169,7 @@ window.addEventListener('message', (event) => {
 
 
   // Detectar comandos y reenviarlos
-  if (messageText.startsWith("!creeper")) {
+  if (messageText.startsWith("!bailesito")) {
 
     const now = Date.now();
 
@@ -247,6 +248,39 @@ window.addEventListener('message', (event) => {
     }
   }
 
+  
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+    // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!crunchy")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
+      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeCrunchy = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
   // === COMANDO !MIDE ===
   if (messageText === "!memide" || messageText.startsWith("!memide")) {
 
@@ -270,23 +304,6 @@ window.addEventListener('message', (event) => {
     }
 
   }
-
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!rip")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeRip = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
 
   if (messageText.startsWith("!batalla")) {
 
