@@ -128,8 +128,8 @@ const randomMaterialColors = [
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)
 const sbSocket = new WebSocket("ws://localhost:8123");
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
-const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
-const COOLDOWN_MS = 60000; // 3 minutos de cooldown
+const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
+const COOLDOWN_MS = 60000; // 1 minuto de cooldown
 
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
@@ -615,15 +615,6 @@ function buildGlobalCustomProfile() {
   const modIcon = document.createElement('img');
   modIcon.src = randomFrame;
   modIcon.className = 'custom-frame'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
   return modIcon;
 }
 
