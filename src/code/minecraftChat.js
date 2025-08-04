@@ -136,19 +136,7 @@ sbSocket.addEventListener("error", () => {
   console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
 });
 
-const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
-const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
-const COOLDOWN_MS = 180000; // 3 segundos de cooldown
 
-// Global cooldown
-let lastGlobalTriggerTimeCreper = 0;
-let lastGlobalTriggerTimeEnderman = 0;
-let lastGlobalTriggerTimeHappyBirthday = 0;
-let lastGlobalTriggerRaton = 0;
-let lastGlobalTriggerTimeTinta = 0;
-let lastGlobalTriggerTimeRip = 0;
-
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 10 minutos en milisegundos
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -160,6 +148,177 @@ window.addEventListener('message', (event) => {
   const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
   const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
+
+  const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
+  const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
+  const COOLDOWN_MS = 60000; // 3 minutos de cooldown
+
+  // Global cooldown
+  let lastGlobalTriggerTimeCreper = 0;
+  let lastGlobalTriggerTimeEnderman = 0;
+  let lastGlobalTriggerTimeHappyBirthday = 0;
+  let lastGlobalTriggerRaton = 0;
+  let lastGlobalTriggerTimeTinta = 0;
+  let lastGlobalTriggerTimeRip = 0;
+  const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
+
+  // Detectar comandos y reenviarlos
+  if (messageText.startsWith("!creeper")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeCreper = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !enderman y reenviarlo
+  if (messageText.startsWith("!enderman")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeEnderman = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !felizcumple y reenviarlo
+  if (messageText.startsWith("!felizcumple")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeHappyBirthday = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!raton")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerRaton < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerRaton = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!kumsito")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeTinta = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // === COMANDO !MIDE ===
+  if (messageText === "!memide" || messageText.startsWith("!memide")) {
+
+    const now = Date.now();
+    const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
+
+    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
+      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
+
+    } else {
+
+      // Registrar nuevo tiempo de uso
+      cooldownsMemide.set(username, now);
+
+      // Número aleatorio entre 0 y 40
+      const medida = Math.floor(Math.random() * 41);
+
+      // Mostrar el mensaje
+      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
+
+    }
+
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+
+  if (messageText.startsWith("!batalla")) {
+
+    const now = Date.now();
+    const lastUsed = cooldowns.get(username) || 0;
+
+    if (now - lastUsed < COOLDOWN_MS) {
+      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
+    } else {
+
+      const msg = messageText.trim();
+      const parts = msg.split(" ");
+
+      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+
+        // Registrar nuevo tiempo de uso
+        cooldowns.set(username, now);
+
+        if (sbSocket.readyState === WebSocket.OPEN) {
+          sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+        }
+
+        const user = username; // Nombre del usuario que envió el mensaje
+        const opponent = parts.slice(1).join(" ");
+
+        const players = [user, opponent];
+        const winner = players[Math.floor(Math.random() * 2)];
+
+        setTimeout(() => {
+
+          // Mostrar resultado en el overlay como mensaje automático
+          showFakeChatMessage(`El ganador es ${winner}`);
+
+        }, 3000);
+      }
+    }
+  }
 
   setTimeout(() => {
     const bubbles = document.querySelectorAll('.hl-content');
@@ -212,16 +371,13 @@ window.addEventListener('message', (event) => {
         const lastUserNameContainer = userNameContainer[profilePics.length - 1];
         if (!lastUserNameContainer) return;
 
-        const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
-
+        //const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
+        const randomColor = '#8E24AA'; // Morado material 600
         // Cambiar el color de fondo del último nombre de usuario
         lastUserNameContainer.style.backgroundColor = randomColor;
       }
 
     }
-
-
-
 
     let limpio = messageText.replace(/<\/?i>/g, "");
 
@@ -240,165 +396,6 @@ window.addEventListener('message', (event) => {
     lastName.appendChild(customName);
 
   }, 50);
-
-
-  // Detectar comandos y reenviarlos
-  if (messageText.startsWith("!creeper")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeCreper = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // Detectar comando !enderman y reenviarlo
-  if (messageText.startsWith("!enderman")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeEnderman = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // Detectar comando !felizcumple y reenviarlo
-  if (messageText.startsWith("!felizcumple")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeHappyBirthday = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!raton")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerRaton < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerRaton = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!kumsito")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeTinta = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-  // === COMANDO !MIDE ===
-  if (messageText === "!memide" || messageText.startsWith("!memide")) {
-
-    const now = Date.now();
-    const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
-
-    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
-      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
-
-    } else {
-
-      // Registrar nuevo tiempo de uso
-      cooldownsMemide.set(username, now);
-
-      // Número aleatorio entre 0 y 40
-      const medida = Math.floor(Math.random() * 41);
-
-      // Mostrar el mensaje
-      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
-
-    }
-
-  }
-
-  // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!rip")) {
-
-    const now = Date.now();
-
-    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
-      showWarningChatMessage(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
-    } else {
-      lastGlobalTriggerTimeRip = now;
-
-      if (sbSocket.readyState === WebSocket.OPEN) {
-        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-      }
-    }
-  }
-
-
-  if (messageText.startsWith("!batalla")) {
-
-    const now = Date.now();
-    const lastUsed = cooldowns.get(username) || 0;
-
-    if (now - lastUsed < COOLDOWN_MS) {
-      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
-    } else {
-
-      const msg = messageText.trim();
-      const parts = msg.split(" ");
-
-      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
-
-        // Registrar nuevo tiempo de uso
-        cooldowns.set(username, now);
-
-        if (sbSocket.readyState === WebSocket.OPEN) {
-          sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
-        }
-
-        const user = username; // Nombre del usuario que envió el mensaje
-        const opponent = parts.slice(1).join(" ");
-
-        const players = [user, opponent];
-        const winner = players[Math.floor(Math.random() * 2)];
-
-        setTimeout(() => {
-
-          // Mostrar resultado en el overlay como mensaje automático
-          showFakeChatMessage(`El ganador es ${winner}`);
-
-        }, 3000);
-      }
-    }
-  }
 
 });
 
