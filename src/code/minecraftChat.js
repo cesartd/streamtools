@@ -127,6 +127,18 @@ const randomMaterialColors = [
 
 // WebSocket con Streamer.bot (servidor activo en puerto 8123)
 const sbSocket = new WebSocket("ws://localhost:8123");
+const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
+const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
+const COOLDOWN_MS = 60000; // 3 minutos de cooldown
+
+// Global cooldown
+let lastGlobalTriggerTimeCreper = 0;
+let lastGlobalTriggerTimeEnderman = 0;
+let lastGlobalTriggerTimeHappyBirthday = 0;
+let lastGlobalTriggerRaton = 0;
+let lastGlobalTriggerTimeTinta = 0;
+let lastGlobalTriggerTimeRip = 0;
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
 sbSocket.addEventListener("open", () => {
   console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
@@ -149,18 +161,7 @@ window.addEventListener('message', (event) => {
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
   const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
 
-  const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
-  const cooldownsMemide = new Map(); // Guarda el último uso de !batalla por usuario
-  const COOLDOWN_MS = 60000; // 3 minutos de cooldown
 
-  // Global cooldown
-  let lastGlobalTriggerTimeCreper = 0;
-  let lastGlobalTriggerTimeEnderman = 0;
-  let lastGlobalTriggerTimeHappyBirthday = 0;
-  let lastGlobalTriggerRaton = 0;
-  let lastGlobalTriggerTimeTinta = 0;
-  let lastGlobalTriggerTimeRip = 0;
-  const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper")) {
