@@ -157,7 +157,7 @@ window.addEventListener('message', (event) => {
 
   const messageText = data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
   const rawUsername = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
-  const username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
+  let username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
   if(username.length === 0){
     username = "Usuario";
   }; // Si el nombre queda vacío, setear uno generico
