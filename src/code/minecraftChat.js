@@ -156,7 +156,11 @@ window.addEventListener('message', (event) => {
   if (!data || !data.dataReceived) return; // Ignorar si no es un mensaje válido
 
   const messageText = data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
-  const username = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  const rawUsername = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  const username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
+  if(username.length === 0){
+    username = "Usuario";
+  }; // Si el nombre queda vacío, setear uno generico
   const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
   const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
@@ -604,6 +608,14 @@ function buildGlobalCustomProfile() {
   modIcon.style.right = '19px';
 
   return modIcon;
+}
+
+function limpiaNombreDeUsuario(nombre) {
+  // Eliminar emojis y símbolos no estándar
+  return nombre.replace(
+    /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD800-\uDFFF]|[\uFE00-\uFE0F]|\u24C2|[\u1F600-\u1F64F]|[\u1F300-\u1F5FF]|[\u1F680-\u1F6FF]|[\u1F700-\u1F77F]|[\u1F780-\u1F7FF]|[\u1F800-\u1F8FF]|[\u1F900-\u1F9FF]|[\u1FA00-\u1FA6F]|[\u1FA70-\u1FAFF]|[\u2600-\u26FF]|\u200D)+/g,
+    ''
+  ).trim();
 }
 
 
