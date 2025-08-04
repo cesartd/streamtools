@@ -130,16 +130,17 @@ const sbSocket = new WebSocket("ws://localhost:8123");
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
 const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
 const COOLDOWN_MS = 60000; // 1 minuto de cooldown
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
 // Global cooldown
 let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
 let lastGlobalTriggerTimeHappyBirthday = 0;
-let lastGlobalTriggerRaton = 0;
+let lastGlobalTriggerBailesito = 0;
 let lastGlobalTriggerTimeTinta = 0;
 let lastGlobalTriggerTimeRip = 0;
 let lastGlobalTriggerTimeCrunchy = 0;
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
+
 
 sbSocket.addEventListener("open", () => {
   console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
@@ -169,7 +170,7 @@ window.addEventListener('message', (event) => {
 
 
   // Detectar comandos y reenviarlos
-  if (messageText.startsWith("!bailesito")) {
+  if (messageText.startsWith("!creeper")) {
 
     const now = Date.now();
 
@@ -217,14 +218,14 @@ window.addEventListener('message', (event) => {
   }
 
   // Detectar comando !raton y reenviarlo
-  if (messageText.startsWith("!reaton")) {
+  if (messageText.startsWith("!bailesito")) {
 
     const now = Date.now();
 
-    if (now - lastGlobalTriggerRaton < GLOBAL_COOLDOWN_MS) {
+    if (now - lastGlobalTriggerBailesito < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerRaton = now;
+      lastGlobalTriggerBailesito = now;
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
