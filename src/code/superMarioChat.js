@@ -46,45 +46,26 @@ styleTag.textContent = `
   margin: 8px !important;
 }
 
-.bubble.twitch-border {
-  border: 2px solid transparent !important;
-  border-radius: 16px !important;
-  background: linear-gradient(135deg, rgba(187, 87, 245, 0.5), rgba(30, 40, 41, 0.6)) !important;
-  animation: rainbowGlow 3s ease-in-out infinite;
-  padding: 8px !important;
-  margin: 8px 0 !important;
-}
-
 `;
 document.head.appendChild(styleTag);
 
 // Configura tus comandos y sus respectivas URLs de emotes aquí
 const emoteCommands = {
-  'sangry': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_angry.png',
-  'shaha': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_laugh.png',
-  'ssad': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sad.png',
-  'sbonk': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_bonk.png',
-  'syumi': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_eat.png',
-  'sflor': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_flower.png',
-  'sgun': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_gun.png',
-  'ssusto': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_scary.png',
-  'ssueno': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_sleepy.png',
-  'spiensa': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_think.png',
-  'sfeli': 'https://cesartd.github.io/streamtools/src/img/emotes/emote_happy.png',
-  'weno': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
-  'aywe': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
+  'ora': 'https://cesartd.github.io/streamtools/src/img/emotes/anim_shrek.gif',
+  'alv': 'https://cesartd.github.io/streamtools/src/img/random/aywe.png',
   'eh': 'https://cesartd.github.io/streamtools/src/img/random/dogoh.png',
-  'gak': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
+  'gok': 'https://cesartd.github.io/streamtools/src/img/random/gak.png',
   'gy': 'https://cesartd.github.io/streamtools/src/img/random/lgtv.png',
   'mtexto': 'https://cesartd.github.io/streamtools/src/img/random/mucho_texto.png',
   'nimodo': 'https://cesartd.github.io/streamtools/src/img/random/nimodo.png',
   'yiyi': 'https://cesartd.github.io/streamtools/src/img/random/pngul.jpg',
-  'tapotente': 'https://cesartd.github.io/streamtools/src/img/random/tapotente.png',
   'ff': 'https://cesartd.github.io/streamtools/src/img/random/ff.png',
-  'hola': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
+  'saluditos': 'https://cesartd.github.io/streamtools/src/img/random/hello.gif',
   'jajaja': 'https://cesartd.github.io/streamtools/src/img/random/jaja.png',
   'gg': 'https://cesartd.github.io/streamtools/src/img/random/gg.webp',
   'bye': 'https://cesartd.github.io/streamtools/src/img/random/ebye.gif',
+  'hola': 'https://cesartd.github.io/streamtools/src/img/random/saria-hello.gif',
+  'jajsja': 'https://cesartd.github.io/streamtools/src/img/random/asasasas.gif'
 };
 
 const avatarFrames = [
@@ -123,21 +104,64 @@ const avatarFrames = [
 ];
 
 const randomMaterialColors = [
-  '#2E7D32', // Green 800
-  '#0277BD', // Light blue 800
-  '#00838F', // Cyan50 800
-  '#00695C', // Teal50 800 
-  '#4527A0', // DeepPurple50 800
-  '#283593', // Indigo 800
-  '#1565C0', // Blue50 800
-  '#FF5252', // Red50 A200
-  '#E040FB', // Purple50 A200
-  '#EF6C00', // Orange50 800
-  '#FF4081', // Pink50 A200
-  '#D32F2F', // Red50 700
-  '#8E24AA',  // purple50 600
-  '#689F38'  // light green 700
+  '#EC407A', // Pink 500
+  '#D81B60', // Pink 600
+  '#AB47BC', // Purple 500
+  '#8E24AA', // Purple 600
+  '#7E57C2', // Deep Purple 500
+  '#5E35B1', // Deep Purple 600
+  '#5C6BC0', // Indigo 500
+  '#3949AB', // Indigo 600
+  '#42A5F5', // Blue 500
+  '#1E88E5', // Blue 600
+  '#29B6F6', // Light Blue 400
+  '#039BE5', // Light Blue 600
+  '#26C6DA', // Cyan 400
+  '#00ACC1', // Cyan 600
+  '#26A69A', // Teal 400
+  '#00897B', // Teal 600
+  '#66BB6A', // Green 400
+  '#43A047', // Green 600
+  '#9CCC65', // Light Green 400
+  '#7CB342', // Light Green 600
+  '#D4E157', // Lime 400
+  '#C0CA33', // Lime 600
+  '#FFEE58', // Yellow 400
+  '#FDD835', // Yellow 600
+  '#FFA726', // Orange 400
+  '#FB8C00', // Orange 600
+  '#FF7043', // Deep Orange 400
+  '#F4511E', // Deep Orange 600
+  '#EF5350', // Red 400
+  '#E53935'  // Red 600
 ];
+
+// WebSocket con Streamer.bot (servidor activo en puerto 8123)
+const sbSocket = new WebSocket("ws://localhost:8123");
+const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
+const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
+const COOLDOWN_MS = 60000; // 1 minuto de cooldown
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
+
+// Global cooldown
+let lastGlobalTriggerTimeCreper = 0;
+let lastGlobalTriggerTimeEnderman = 0;
+let lastGlobalTriggerTimeHappyBirthday = 0;
+let lastGlobalTriggerBailesito = 0;
+let lastGlobalTriggerTimeTinta = 0;
+let lastGlobalTriggerTimeRip = 0;
+let lastGlobalTriggerTimeCrunchy = 0;
+
+
+sbSocket.addEventListener("open", () => {
+  console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
+});
+
+sbSocket.addEventListener("error", () => {
+  console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
+});
+
+
 
 // Escuchar nuevos mensajes
 window.addEventListener('message', (event) => {
@@ -145,10 +169,190 @@ window.addEventListener('message', (event) => {
   if (!data || !data.dataReceived) return; // Ignorar si no es un mensaje válido
 
   const messageText = data.dataReceived.overlayNinja.chatmessage.toLowerCase(); // Convertir mensaje a minúsculas
-  const username = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  const rawUsername = data.dataReceived.overlayNinja.chatname; // Obtener el nombre de usuario del mensaje
+  let username = limpiaNombreDeUsuario(rawUsername); // Limpiar el nombre de usuario
+  if(username.length === 0){
+    username = "botsito";
+  }; // Si el nombre queda vacío, setear uno generico
   const badges = data.dataReceived.overlayNinja.chatbadges; // Obtener los badges del mensaje
   const isSub = data.dataReceived.overlayNinja.membership; // Obtener el estado de suscripción
   const type = data.dataReceived.overlayNinja.type; // Obtener el tipo de plataforma
+
+
+
+  // Detectar comandos y reenviarlos
+  if (messageText.startsWith("!creeper")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeCreper = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !enderman y reenviarlo
+  if (messageText.startsWith("!enderman")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeEnderman = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !felizcumple y reenviarlo
+  if (messageText.startsWith("!felizcumple")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeHappyBirthday = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!bailesito")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerBailesito < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerBailesito = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!kumsito")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeTinta = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  
+  // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!rip")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeRip = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+    // Detectar comando !raton y reenviarlo
+  if (messageText.startsWith("!crunchy")) {
+
+    const now = Date.now();
+
+    if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      lastGlobalTriggerTimeCrunchy = now;
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
+
+  // === COMANDO !MIDE ===
+  if (messageText === "!memide" || messageText.startsWith("!memide")) {
+
+    const now = Date.now();
+    const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
+
+    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
+      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
+
+    } else {
+
+      // Registrar nuevo tiempo de uso
+      cooldownsMemide.set(username, now);
+
+      // Número aleatorio entre 0 y 40
+      const medida = Math.floor(Math.random() * 41);
+
+      // Mostrar el mensaje
+      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
+
+    }
+
+  }
+
+  if (messageText.startsWith("!batalla")) {
+
+    const now = Date.now();
+    const lastUsed = cooldowns.get(username) || 0;
+
+    if (now - lastUsed < COOLDOWN_MS) {
+      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
+    } else {
+
+      const msg = messageText.trim();
+      const parts = msg.split(" ");
+
+      if (parts[0].toLowerCase() === "!batalla" && parts.length >= 2) {
+
+        // Registrar nuevo tiempo de uso
+        cooldowns.set(username, now);
+
+        if (sbSocket.readyState === WebSocket.OPEN) {
+          sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+        }
+
+        const user = username; // Nombre del usuario que envió el mensaje
+        const opponent = parts.slice(1).join(" ");
+
+        const players = [user, opponent];
+        const winner = players[Math.floor(Math.random() * 2)];
+
+        setTimeout(() => {
+
+          // Mostrar resultado en el overlay como mensaje automático
+          showFakeChatMessage(`El ganador es ${winner}`);
+
+        }, 3000);
+      }
+    }
+  }
 
   setTimeout(() => {
     const bubbles = document.querySelectorAll('.hl-content');
@@ -171,9 +375,14 @@ window.addEventListener('message', (event) => {
       const lastProfile = profilePics[profilePics.length - 1];
       if (!lastProfile) return;
 
-      // Construir el nuevo estilo de perfil del suscriptor
-      const customProf = buildGlobalCustomProfile();
-      lastProfile.appendChild(customProf);
+      // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+      const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
+
+      if (!alreadyHasFrame) {
+        // Si no existe, se agrega la nueva imagen
+        const customProf = buildGlobalCustomProfile();
+        lastProfile.appendChild(customProf);
+      }
 
       // Resaltar el nombre del último usuario
       const userNameContainer = document.querySelectorAll('.hl-righttopline');
@@ -196,16 +405,13 @@ window.addEventListener('message', (event) => {
         const lastUserNameContainer = userNameContainer[profilePics.length - 1];
         if (!lastUserNameContainer) return;
 
-        const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
-
+        //const randomColor = randomMaterialColors[Math.floor(Math.random() * randomMaterialColors.length)];
+        const randomColor = '#8E24AA'; // Morado material 600
         // Cambiar el color de fondo del último nombre de usuario
         lastUserNameContainer.style.backgroundColor = randomColor;
       }
 
     }
-
-
-
 
     let limpio = messageText.replace(/<\/?i>/g, "");
 
@@ -224,7 +430,42 @@ window.addEventListener('message', (event) => {
     lastName.appendChild(customName);
 
   }, 50);
+
 });
+
+
+function showFakeChatMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.className = "highlight-comment";
+
+  container.appendChild(msgBox);
+
+}
+
+function showMedirMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.className = "highlight-horny-comment";
+
+  container.appendChild(msgBox);
+
+}
+
+function showWarningChatMessage(text) {
+  const container = document.querySelector("#output");
+
+  const msgBox = document.createElement("div");
+  msgBox.textContent = text;
+  msgBox.className = "warning-comment";
+
+  container.appendChild(msgBox);
+
+}
 
 // Decodifica HTML como "<img src=...>" en nodos DOM
 function decodeHTML(html) {
@@ -316,7 +557,6 @@ function buildCustomName(badges, username, isSubscriber, type) {
         // Si el badge es de moderador, añade el ícono correspondiente
         const modIcon = document.createElement('img');
         modIcon.src = item; // Cambia esto por el ícono que prefieras
-        modIcon.alt = 'badge';
         modIcon.style.width = '30px';
         modIcon.style.height = '30px';
         modIcon.style.marginRight = '4px';
@@ -327,30 +567,29 @@ function buildCustomName(badges, username, isSubscriber, type) {
     } else {
       badges.forEach(function (item) {
         if (typeof item.includes === 'function') {
-        if (item.includes("moderater")) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'Mod';
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
+          if (item.includes("moderater")) {
+            // Si el badge es de moderador, añade el ícono correspondiente
+            const modIcon = document.createElement('img');
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/mod_badge.png'; // Cambia esto por el ícono que prefieras
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
+            modIcon.style.marginRight = '4px';
+            modIcon.style.verticalAlign = 'middle';
+            wrapper.appendChild(modIcon);
 
-        } else if (isSubscriber == true && item.includes("fans")) {
-          // Si el badge es de moderador, añade el ícono correspondiente
-          const modIcon = document.createElement('img');
-          modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
-          modIcon.alt = 'Mod';
-          modIcon.style.width = '30px';
-          modIcon.style.height = '30px';
-          modIcon.style.marginRight = '4px';
-          modIcon.style.verticalAlign = 'middle';
-          wrapper.appendChild(modIcon);
+          } else if (isSubscriber == true && item.includes("fans")) {
+            // Si el badge es de moderador, añade el ícono correspondiente
+            const modIcon = document.createElement('img');
+            modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/heart_icon.png'; // Cambia esto por el ícono que prefieras
+            modIcon.style.width = '30px';
+            modIcon.style.height = '30px';
+            modIcon.style.marginRight = '4px';
+            modIcon.style.verticalAlign = 'middle';
+            wrapper.appendChild(modIcon);
+          }
+
         }
-
-      }});
+      });
     }
   }
 
@@ -359,11 +598,17 @@ function buildCustomName(badges, username, isSubscriber, type) {
     const lastProfile = profilePics[profilePics.length - 1];
     if (!lastProfile) return;
 
-    let customProf = "";
+    // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+    const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
-    customProf = buildGlobalCustomProfile()
+    if (!alreadyHasFrame) {
+      let customProf = "";
 
-    lastProfile.appendChild(customProf);
+      // Si no existe, se agrega la nueva imagen
+      customProf = buildGlobalCustomProfile();
+      lastProfile.appendChild(customProf);
+    }
+
   }
 
 
@@ -374,88 +619,19 @@ function buildCustomName(badges, username, isSubscriber, type) {
   return wrapper;
 }
 
-function buildCustomProfilePicTopGifter() {
-
-
-
-  const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/top_gifter_border2.png'; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'TopGifter';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
-}
-
-function buildCustomProfilePicFans(tier) {
-
-  const fanIcon = document.createElement('img');
-
-  if (tier == 1) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-1.png'; // Cambia esto por el ícono que prefieras
-  } else if (tier == 2) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-2.png'; // Cambia esto por el ícono que prefieras
-  } else if (tier == 3) {
-    fanIcon.src = 'https://cesartd.github.io/streamtools/src/img/frames/set3-member-tier-3.png'; // Cambia esto por el ícono que prefieras
-  }
-
-  fanIcon.alt = 'member';
-  fanIcon.className = 'mod'
-  fanIcon.style.marginRight = '4px';
-  fanIcon.style.verticalAlign = 'middle';
-  fanIcon.style.width = '150%';
-  fanIcon.style.height = '114px';
-  fanIcon.style.position = 'relative';
-  fanIcon.style.float = 'left';
-  fanIcon.style.bottom = '118px';
-  fanIcon.style.right = '19px';
-
-  return fanIcon;
-}
-
-function buildCustomProfilePicSubscriber() {
-
-  const modIcon = document.createElement('img');
-  modIcon.src = 'https://cesartd.github.io/streamtools/src/img/misc/border_sub.png'; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'Sub';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
-  return modIcon;
-}
 
 function buildGlobalCustomProfile() {
 
   const randomFrame = avatarFrames[Math.floor(Math.random() * avatarFrames.length)];
 
   const modIcon = document.createElement('img');
-  modIcon.src = randomFrame; // Cambia esto por el ícono que prefieras
-  modIcon.alt = 'generalUser';
-  modIcon.className = 'mod'
-  modIcon.style.marginRight = '4px';
-  modIcon.style.verticalAlign = 'middle';
-  modIcon.style.width = '150%';
-  modIcon.style.height = '114px';
-  modIcon.style.position = 'relative';
-  modIcon.style.float = 'left';
-  modIcon.style.bottom = '118px';
-  modIcon.style.right = '19px';
-
+  modIcon.src = randomFrame;
+  modIcon.className = 'custom-frame'
   return modIcon;
+}
+
+function limpiaNombreDeUsuario(nombre) {
+  return nombre.replace(/[^\w\s]/gi, '').trim(); // Conserva letras, números y espacios
 }
 
 
