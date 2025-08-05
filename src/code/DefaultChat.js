@@ -132,6 +132,7 @@ const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuar
 const COOLDOWN_MS = 60000; // 1 minuto de cooldown
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
+
 // Global cooldown 
 let lastGlobalTriggerTimeCreper = 0;
 let lastGlobalTriggerTimeEnderman = 0;
