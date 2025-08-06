@@ -300,7 +300,7 @@ window.addEventListener('message', (event) => {
       const medida = Math.floor(Math.random() * 41);
 
       // Mostrar el mensaje
-      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
+      showMedirMessage(`¡Wow! a ${rawUsername} le mide ${medida} cm. 🍆`);
 
     }
 
@@ -403,7 +403,7 @@ window.addEventListener('message', (event) => {
     if (!lastName) return;
 
     // Poner medallas de fans y moderadores
-    const customName = buildCustomName(badges, username, isSubscriber, type);
+    const customName = buildCustomName(badges, rawUsername, isSubscriber, type);
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
