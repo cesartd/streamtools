@@ -175,7 +175,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeCreper = now;
 
@@ -191,7 +191,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeEnderman = now;
 
@@ -207,7 +207,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeHappyBirthday = now;
 
@@ -223,7 +223,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerBailesito < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerBailesito = now;
 
@@ -239,7 +239,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeTinta = now;
 
@@ -256,7 +256,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeRip = now;
 
@@ -272,7 +272,7 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
 
     if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
     } else {
       lastGlobalTriggerTimeCrunchy = now;
 
@@ -289,7 +289,7 @@ window.addEventListener('message', (event) => {
     const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
 
     if (now - lastMedirTriggerTime < COOLDOWN_MS) {
-      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
+      showWarningChatMessage(`⏳ ${rawUsername} Debes esperar un poco antes de volver a usar !memide`);
 
     } else {
 
@@ -300,7 +300,7 @@ window.addEventListener('message', (event) => {
       const medida = Math.floor(Math.random() * 41);
 
       // Mostrar el mensaje
-      showMedirMessage(`¡Wow! a ${username} le mide ${medida} cm. 🍆`);
+      showMedirMessage(`¡Wow! a ${rawUsername} le mide ${medida} cm. 🍆`);
 
     }
 
@@ -312,7 +312,7 @@ window.addEventListener('message', (event) => {
     const lastUsed = cooldowns.get(username) || 0;
 
     if (now - lastUsed < COOLDOWN_MS) {
-      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
+      showWarningChatMessage(`${rawUsername} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
       const msg = messageText.trim();
@@ -414,7 +414,7 @@ window.addEventListener('message', (event) => {
     if (!lastName) return;
 
     // Poner medallas de fans y moderadores
-    const customName = buildCustomName(badges, username, isSubscriber, type);
+    const customName = buildCustomName(badges, rawUsername, isSubscriber, type);
     lastName.innerHTML = '';
     lastName.appendChild(customName);
 
