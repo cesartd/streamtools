@@ -129,18 +129,17 @@ const randomMaterialColors = [
 const sbSocket = new WebSocket("ws://localhost:8123");
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
 const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
-const COOLDOWN_MS = 60000; // 1 minuto de cooldown
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
+const cooldownsBailesito = new Map(); // Guarda el último uso de !bailesito por usuario
+const cooldownsTinta = new Map(); // Guarda el último uso de !kumsito por usuario
+const cooldownsRip = new Map(); // Guarda el último uso de !rip por usuario
+const cooldownsCrunchy = new Map(); // Guarda el último uso de !crunchy por usuario
+const cooldownsHappyBirthday = new Map(); // Guarda el último uso de !felizcumple por usuario
+const cooldownsEnderman = new Map(); // Guarda el último uso de !enderman por usuario
+const cooldownsCreeper = new Map(); // Guarda el último uso de !creeper por usuario
 
-// Global cooldown 
-let lastGlobalTriggerTimeCreper = 0;
-let lastGlobalTriggerTimeEnderman = 0;
-let lastGlobalTriggerTimeHappyBirthday = 0;
-let lastGlobalTriggerBailesito = 0;
-let lastGlobalTriggerTimeTinta = 0;
-let lastGlobalTriggerTimeRip = 0;
-let lastGlobalTriggerTimeCrunchy = 0;
+const COOLDOWN_1_MIN = 60000; // 1 minuto de cooldown
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos de cooldown global
 
 sbSocket.addEventListener("open", () => {
   console.log("[SSN Overlay] WebSocket conectado con Streamer.bot");
@@ -149,7 +148,6 @@ sbSocket.addEventListener("open", () => {
 sbSocket.addEventListener("error", () => {
   console.warn("[SSN Overlay] No se pudo conectar a Streamer.bot WebSocket");
 });
-
 
 
 // Escuchar nuevos mensajes
@@ -173,11 +171,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!creeper")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeCreper = cooldownsCreeper.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeCreper = now;
+      cooldownsCreeper.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -189,11 +188,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!enderman")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeEnderman = cooldownsEnderman.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeEnderman = now;
+      cooldownsEnderman.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -205,11 +205,13 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!felizcumple")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeHappyBirthday = cooldownsHappyBirthday.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeHappyBirthday = now;
+
+      cooldownsHappyBirthday.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -221,11 +223,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!bailesito")) {
 
     const now = Date.now();
+    const lastGlobalTriggerBailesito = cooldownsBailesito.get(username) || 0;
 
     if (now - lastGlobalTriggerBailesito < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerBailesito = now;
+      cooldownsBailesito.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -237,11 +240,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!kumsito")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeTinta = cooldownsTinta.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeTinta = now;
+      cooldownsTinta.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -254,11 +258,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!rip")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeRip = cooldownsRip.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeRip = now;
+      cooldownsRip.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -270,11 +275,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!crunchy")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeCrunchy = cooldownsCrunchy.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
       console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeCrunchy = now;
+      cooldownsCrunchy.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -288,11 +294,9 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
     const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
 
-    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
-      showWarningChatMessage(`⏳ ${username} Debes esperar un poco antes de volver a usar !memide`);
-
+    if (now - lastMedirTriggerTime < COOLDOWN_1_MIN) {
+      console.log(` ${username} debes esperar un poco antes de volver a usar !memide`);
     } else {
-
       // Registrar nuevo tiempo de uso
       cooldownsMemide.set(username, now);
 
@@ -311,8 +315,8 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
     const lastUsed = cooldowns.get(username) || 0;
 
-    if (now - lastUsed < COOLDOWN_MS) {
-      showWarningChatMessage(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
+    if (now - lastUsed < COOLDOWN_1_MIN) {
+      console.log(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
       const msg = messageText.trim();
