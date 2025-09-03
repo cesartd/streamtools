@@ -87,7 +87,12 @@ const avatarFrames = [
   "https://cesartd.github.io/streamtools/src/img/frames/silenthill/piramidhead.png",
   "https://cesartd.github.io/streamtools/src/img/frames/silenthill/travis.png",
   "https://cesartd.github.io/streamtools/src/img/frames/silenthill/vincent.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/walter.png"
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/walter.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/alex.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/dog.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/dogsh4.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/douglas.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/murphy.png"
 ];
 
 const randomMaterialColors = [
