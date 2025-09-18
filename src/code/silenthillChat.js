@@ -69,8 +69,8 @@ styleTag.textContent = `
     height: 64px;
     border-radius: 50%;
     padding: 4px; /* Espacio para el borde */
-    background: linear-gradient(135deg, #d3bf10ff, #00ccff);
-    box-shadow: 0 0 12px #e2df15aa, 0 0 12px #00ccffaa, 0 0 20px #c9b719ff;
+    background: linear-gradient(135deg, #d3bf10ff, #c9b719ff);
+    box-shadow: 0 0 12px #e2df15aa, 0 0 12px #c9b719ff, 0 0 20px #c9b719ff;
 
 }
 
