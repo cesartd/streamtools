@@ -424,15 +424,15 @@ window.addEventListener('message', (event) => {
       lastUserNameContainer.style.backgroundColor = 'goldenrod';
     } else {
 
-      if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
-        lastBorder.classList.add('twitch-border');
-      } else {
         const profilePics = document.querySelectorAll('.hl-leftside');
         const lastProfile = profilePics[profilePics.length - 1];
         if (!lastProfile) return;
 
         lastProfile.classList.add('leftnormal');
 
+      if (type.localeCompare("twitch") == 0) {// si es mensaje de Twitch
+        lastBorder.classList.add('twitch-border');
+      } else {
         // Resaltar el nombre del último usuario
         const userNameContainer = document.querySelectorAll('.hl-righttopline');
         const lastUserNameContainer = userNameContainer[profilePics.length - 1];
