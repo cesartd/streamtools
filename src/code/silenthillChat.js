@@ -46,6 +46,34 @@ styleTag.textContent = `
   margin: 8px !important;
 }
 
+.hl-leftside.leftnormal {
+    position: relative;
+    margin-left: 25px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 64px; /* Ajusta según el tamaño de tu imagen */
+    height: 64px;
+    border-radius: 50%;
+    padding: 4px; /* Espacio para el borde */
+    background: linear-gradient(135deg, #ff00cc, #00ccff);
+    box-shadow: 0 0 12px #ff00ccaa, 0 0 12px #00ccffaa, 0 0 20px #ff00cc88;
+
+}
+
+.hl-leftside.leftsub {
+    position: relative;
+    margin-left: 25px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 64px; /* Ajusta según el tamaño de tu imagen */
+    height: 64px;
+    border-radius: 50%;
+    padding: 4px; /* Espacio para el borde */
+    background: linear-gradient(135deg, #d3bf10ff, #00ccff);
+    box-shadow: 0 0 12px #e2df15aa, 0 0 12px #00ccffaa, 0 0 20px #c9b719ff;
+
+}
+
 `;
 document.head.appendChild(styleTag);
 
@@ -132,17 +160,17 @@ const randomMaterialColors = [
 const sbSocket = new WebSocket("ws://localhost:8123");
 const cooldowns = new Map(); // Guarda el último uso de !batalla por usuario
 const cooldownsMemide = new Map(); // Guarda el último uso de !memide por usuario
-const COOLDOWN_MS = 60000; // 1 minuto de cooldown
-const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos en milisegundos
 
-// Global cooldown
-let lastGlobalTriggerTimeCreper = 0;
-let lastGlobalTriggerTimeEnderman = 0;
-let lastGlobalTriggerTimeHappyBirthday = 0;
-let lastGlobalTriggerBailesito = 0;
-let lastGlobalTriggerTimeTinta = 0;
-let lastGlobalTriggerTimeRip = 0;
-let lastGlobalTriggerTimeCrunchy = 0;
+const cooldownsBailesito = new Map(); // Guarda el último uso de !bailesito por usuario
+const cooldownsTinta = new Map(); // Guarda el último uso de !kumsito por usuario
+const cooldownsRip = new Map(); // Guarda el último uso de !rip por usuario
+const cooldownsCrunchy = new Map(); // Guarda el último uso de !crunchy por usuario
+const cooldownsHappyBirthday = new Map(); // Guarda el último uso de !felizcumple por usuario
+const cooldownsEnderman = new Map(); // Guarda el último uso de !enderman por usuario
+const cooldownsCreeper = new Map(); // Guarda el último uso de !creeper por usuario
+
+const COOLDOWN_1_MIN = 60000; // 1 minuto de cooldown
+const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos de cooldown global
 
 
 sbSocket.addEventListener("open", () => {
@@ -172,15 +200,17 @@ window.addEventListener('message', (event) => {
 
 
 
+
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeCreper = cooldownsCreeper.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeCreper < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeCreper = now;
+      cooldownsCreeper.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -192,11 +222,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!enderman")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeEnderman = cooldownsEnderman.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeEnderman < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeEnderman = now;
+      cooldownsEnderman.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -208,11 +239,13 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!felizcumple")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeHappyBirthday = cooldownsHappyBirthday.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeHappyBirthday < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeHappyBirthday = now;
+
+      cooldownsHappyBirthday.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -224,11 +257,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!bailesito")) {
 
     const now = Date.now();
+    const lastGlobalTriggerBailesito = cooldownsBailesito.get(username) || 0;
 
     if (now - lastGlobalTriggerBailesito < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerBailesito = now;
+      cooldownsBailesito.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -240,11 +274,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!kumsito")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeTinta = cooldownsTinta.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeTinta < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeTinta = now;
+      cooldownsTinta.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -257,11 +292,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!rip")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeRip = cooldownsRip.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeRip < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeRip = now;
+      cooldownsRip.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -273,11 +309,12 @@ window.addEventListener('message', (event) => {
   if (messageText.startsWith("!crunchy")) {
 
     const now = Date.now();
+    const lastGlobalTriggerTimeCrunchy = cooldownsCrunchy.get(username) || 0;
 
     if (now - lastGlobalTriggerTimeCrunchy < GLOBAL_COOLDOWN_MS) {
-      console.log(`¡${rawUsername} debes esperar un poco la sorpresa esta en camino!`);
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
     } else {
-      lastGlobalTriggerTimeCrunchy = now;
+      cooldownsCrunchy.set(username, now);
 
       if (sbSocket.readyState === WebSocket.OPEN) {
         sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
@@ -367,6 +404,8 @@ window.addEventListener('message', (event) => {
       const lastProfile = profilePics[profilePics.length - 1];
       if (!lastProfile) return;
 
+      lastProfile.classList.add('leftsub');
+
       // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
       const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
@@ -391,6 +430,8 @@ window.addEventListener('message', (event) => {
         const profilePics = document.querySelectorAll('.hl-leftside');
         const lastProfile = profilePics[profilePics.length - 1];
         if (!lastProfile) return;
+
+        lastProfile.classList.add('leftnormal');
 
         // Resaltar el nombre del último usuario
         const userNameContainer = document.querySelectorAll('.hl-righttopline');
