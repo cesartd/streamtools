@@ -328,11 +328,9 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
     const lastMedirTriggerTime = cooldownsMemide.get(username) || 0;
 
-    if (now - lastMedirTriggerTime < COOLDOWN_MS) {
-      showWarningChatMessage(`⏳ ${rawUsername} Debes esperar un poco antes de volver a usar !memide`);
-
+    if (now - lastMedirTriggerTime < COOLDOWN_1_MIN) {
+      console.log(` ${username} debes esperar un poco antes de volver a usar !memide`);
     } else {
-
       // Registrar nuevo tiempo de uso
       cooldownsMemide.set(username, now);
 
@@ -351,8 +349,8 @@ window.addEventListener('message', (event) => {
     const now = Date.now();
     const lastUsed = cooldowns.get(username) || 0;
 
-    if (now - lastUsed < COOLDOWN_MS) {
-      showWarningChatMessage(`${rawUsername} debes esperar un poco para tu proximo enfrentamiento.`);
+    if (now - lastUsed < COOLDOWN_1_MIN) {
+      console.log(`${username} debes esperar un poco para tu proximo enfrentamiento.`);
     } else {
 
       const msg = messageText.trim();
