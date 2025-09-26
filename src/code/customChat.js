@@ -97,38 +97,30 @@ const emoteCommands = {
 };
 
 const avatarFrames = [
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/mario.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luigi.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/peach.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toad.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/yoshi.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bomb.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/bowser.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/calamar.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/canon.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/coopa.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/daysi.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/fish.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/goomba.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/pauline.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/planta.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/rosaline.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/skeleton.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/waluigi.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/wario.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babybowser.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babydaisy.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/babypeach.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/birdo.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/diddykon.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/donkeykong.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/ghost.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/kingbomb.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/lakito.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/luma.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/shyguy.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/toaddete.png",
-  "https://cesartd.github.io/streamtools/src/img/frames/nintendo/topo.png"
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/angela.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/cheryl.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/claudia.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/cybil.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/dahlia.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/eddie.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/eillen.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/harry.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/henry.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/james.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/kauffman.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/laura.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/lisa.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/maria.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/nurse.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/piramidhead.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/travis.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/vincent.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/walter.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/alex.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/dog.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/dogsh4.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/douglas.png",
+  "https://cesartd.github.io/streamtools/src/img/frames/silenthill/murphy.png"
 ];
 
 const randomMaterialColors = [
@@ -176,6 +168,7 @@ const cooldownsCrunchy = new Map(); // Guarda el último uso de !crunchy por usu
 const cooldownsHappyBirthday = new Map(); // Guarda el último uso de !felizcumple por usuario
 const cooldownsEnderman = new Map(); // Guarda el último uso de !enderman por usuario
 const cooldownsCreeper = new Map(); // Guarda el último uso de !creeper por usuario
+const cooldownsiono = new Map(); // Guarda el último uso de !siono por usuario
 
 const COOLDOWN_1_MIN = 60000; // 1 minuto de cooldown
 const GLOBAL_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutos de cooldown global
@@ -208,6 +201,22 @@ window.addEventListener('message', (event) => {
 
 
 
+ // Detectar comandos y reenviarlos
+  if (messageText.startsWith("!siono")) {
+
+    const now = Date.now();
+    const lastTimeGlobalSiono = cooldownsiono.get(username) || 0;
+
+    if (now - lastTimeGlobalSiono < GLOBAL_COOLDOWN_MS) {
+      console.log(`¡${username} debes esperar un poco la sorpresa esta en camino!`);
+    } else {
+      cooldownsiono.set(username, now);
+
+      if (sbSocket.readyState === WebSocket.OPEN) {
+        sbSocket.send(messageText); // Enviar el comando puro a Streamer.bot
+      }
+    }
+  }
 
   // Detectar comandos y reenviarlos
   if (messageText.startsWith("!creeper")) {
