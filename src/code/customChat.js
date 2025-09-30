@@ -421,14 +421,14 @@ window.addEventListener('message', (event) => {
 
       lastProfile.classList.add('leftsub');
 
-      // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+      /*// Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
       const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
       if (!alreadyHasFrame) {
         // Si no existe, se agrega la nueva imagen
         const customProf = buildGlobalCustomProfile();
         lastProfile.appendChild(customProf);
-      }
+      }*/
 
       // Resaltar el nombre del último usuario
       const userNameContainer = document.querySelectorAll('.hl-righttopline');
@@ -646,7 +646,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
     const lastProfile = profilePics[profilePics.length - 1];
     if (!lastProfile) return;
 
-    // Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
+    /*// Verificar si ya existe una imagen con la clase "mod" dentro de lastProfile
     const alreadyHasFrame = lastProfile.querySelector('.custom-frame');
 
     if (!alreadyHasFrame) {
@@ -655,7 +655,7 @@ function buildCustomName(badges, username, isSubscriber, type) {
       // Si no existe, se agrega la nueva imagen
       customProf = buildGlobalCustomProfile();
       lastProfile.appendChild(customProf);
-    }
+    }*/
 
   }
 
